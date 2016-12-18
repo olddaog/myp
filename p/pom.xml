@@ -19,6 +19,7 @@
         <org.springframework-version>3.2.5.RELEASE</org.springframework-version>
         <org.aspectj-version>1.7.4</org.aspectj-version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
+        <org.springframework.security.version>3.2.0.RELEASE</org.springframework.security.version>
     </properties>
    
     <dependencies>
@@ -226,6 +227,61 @@
 <version>1.8.5</version>  
 </dependency> 
 
+ <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-web</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-config</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-core</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-acl</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-aspects</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-cas</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-crypto</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-ldap</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-openid</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-remoting</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.springframework.security</groupId>  
+        <artifactId>spring-security-taglibs</artifactId>  
+        <version>${org.springframework.security.version}</version>  
+    </dependency>  
     </dependencies>
     
     
