@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,29 +25,32 @@ public class Menu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-    private String text;
-    private HashMap target=new HashMap();
-    private String domId;
-    private String iconCls;
-    private String state;
-	private HashMap attributes=new HashMap();
+	private String text;
+	private HashMap target = new HashMap();
+	private String domId;
+	private String iconCls;
+	private String state;
+	private HashMap attributes = new HashMap();
 	private Long parentId;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_children")
-	
 	private Set<Menu> children;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "menu_role")
+	private Set<Role> roles;
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getText() {
 		return text;
 	}
+
 	public void setText(String text) {
 		this.text = text;
 	}
@@ -54,25 +58,31 @@ public class Menu {
 	public String getDomId() {
 		return domId;
 	}
+
 	public void setDomId(String domId) {
 		this.domId = domId;
 	}
+
 	public String getIconCls() {
 		return iconCls;
 	}
+
 	public void setIconCls(String iconCls) {
 		this.iconCls = iconCls;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
 	public Long getParentId() {
 		return parentId;
 	}
+
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
@@ -80,30 +90,40 @@ public class Menu {
 	public HashMap getTarget() {
 		return target;
 	}
+
 	public void setTarget(HashMap target) {
 		this.target = target;
 	}
+
 	public HashMap getAttributes() {
 		return attributes;
 	}
+
 	public void setAttributes(HashMap attributes) {
 		this.attributes = attributes;
 	}
-	
-	
-    public void addChildren(Menu menu){
 
-    Set<Menu> set = this.getChildren();
-	set.add(menu);
-	this.setChildren(set);
-}
+	public void addChildren(Menu menu) {
 
-public Set<Menu> getChildren() {
-	return children;
-}
+		Set<Menu> set = this.getChildren();
+		set.add(menu);
+		this.setChildren(set);
+	}
 
-public void setChildren(Set<Menu> children) {
-	this.children = children;
-}
+	public Set<Menu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Menu> children) {
+		this.children = children;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 }

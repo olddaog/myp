@@ -20,6 +20,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String userName;
+	private  String password;
 	@ManyToOne
 	private Org org;
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -49,7 +51,17 @@ public class User {
 	public void setRole(Set<Role> role) {
 		this.role = role;
 	}
-	
-	
-	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }
