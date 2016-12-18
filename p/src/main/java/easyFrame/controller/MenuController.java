@@ -42,7 +42,7 @@ public class MenuController {
 	       Menu parent = menuManager.get(menu.getParentId());
 	       System.out.println(JSONObject.fromObject(parent));
 	       parent.getChildren().add(menu);
-	       System.out.println( parent.getChildren().size()+"----------------------");
+	       System.out.println( parent.getChildren().size()+"----9999999999999------------------");
 	    //   parent.addChildren(menu);
 	    Menu res = menuManager.save(parent);
 		 return new SuccessResponse(res);
