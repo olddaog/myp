@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans  
-            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
-            http://www.springframework.org/schema/security  
-            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:sec="http://www.springframework.org/schema/security"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+        http://www.springframework.org/schema/security  
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">  
 
-	<!-- 配置不过滤的资源（静态资源及登录相关） -->
 	<sec:http pattern="/**/*.css" security="none"></sec:http>
 	<sec:http pattern="/**/*.jpg" security="none"></sec:http>
 	<sec:http pattern="/**/*.jpeg" security="none"></sec:http>
@@ -23,16 +23,11 @@
 		<sec:intercept-url pattern="/app.jsp" access="ROLE_SERVICE" />
 		<sec:intercept-url pattern="/**" access="ROLE_ADMIN" />
 
+		<sec:form-login login-page="/login/index.html"
+			authentication-failure-url="/login.jsp" default-target-url="/index.jsp" />
 	</sec:http>
+	
 
-	<sec:http auto-config="true">
-
-		<sec:intercept-url pattern="/app.jsp" access="ROLE_SERVICE" />
-		<sec:intercept-url pattern="/**" access="ROLE_ADMIN" />
-
-		<sec:form-login login-page="/login.jsp" authentication-failure-url="/login.jsp" default-target-url="/index.jsp" />
-
-	</sec:http>
 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
