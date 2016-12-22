@@ -14,17 +14,16 @@
 	<sec:http pattern="/**/*.png" security="none"></sec:http>
 	<sec:http pattern="/js/*.js" security="none"></sec:http>
 
-	<sec:http pattern="/login.jsp" security="none"></sec:http>
+	<sec:http pattern="/login/index.html" security="none"></sec:http>
 	<sec:http pattern="/getCode" security="none" /><!-- 不过滤验证码 -->
 	<sec:http pattern="/test/**" security="none"></sec:http><!-- 不过滤测试内容 -->
 
 	<sec:http auto-config="true">
 
-		<sec:intercept-url pattern="/app.jsp" access="ROLE_SERVICE" />
 		<sec:intercept-url pattern="/**" access="ROLE_ADMIN" />
 
 		<sec:form-login login-page="/login/index.html"
-			authentication-failure-url="/login.jsp" default-target-url="/index.jsp" />
+			authentication-failure-url="/login.html" default-target-url="/index.html" />
 	</sec:http>
 	
 
