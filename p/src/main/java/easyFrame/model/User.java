@@ -22,6 +22,8 @@ public class User {
 	private String name;
 	private String userName;
 	private  String password;
+	private  boolean enabled;
+	
 	@ManyToOne
 	private Org org;
 	@ManyToMany(fetch = FetchType.EAGER)

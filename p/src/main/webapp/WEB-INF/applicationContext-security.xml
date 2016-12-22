@@ -27,7 +27,7 @@
 	</sec:http>
 	
 
-
+<!-- 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:user-service>
@@ -35,5 +35,17 @@
 			</sec:user-service>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+ -->
+
+<sec:authentication-manager>   
+ 
+        <sec:authentication-provider>    
+            <sec:jdbc-user-service data-source-ref="ds"  
+             users-by-username-query="select username,password,enabled as status from t_user where username=?"  
+             authorities-by-username-query="select u.username,r.name as authority from user u join authority a on a.userid=u.id join role r on r.id=a.roleid where u.username=?"/>  
+        </sec:authentication-provider>    
+</sec:authentication-manager>    
+
+
 
 </beans>  
