@@ -20,10 +20,10 @@
 
 	<sec:http auto-config="true">
 
-		<sec:intercept-url pattern="/**" access="ROLE_ADMIN" />
+		<!-- <sec:intercept-url pattern="/**" access="ROLE_ADMIN" /> -->
 
 		<sec:form-login login-page="/login/index.html"
-			authentication-failure-url="/login.html" default-target-url="/index.html" />
+			authentication-failure-url="/login/index.html" default-target-url="/user/loginTrans.do" />
 	</sec:http>
 	
 
@@ -42,8 +42,9 @@
         <sec:authentication-provider>    
             <sec:jdbc-user-service data-source-ref="ds"  
              users-by-username-query="select username,password,enabled as status from t_user where username=?"  
-             authorities-by-username-query="select u.username,r.name as authority from user u join authority a on a.userid=u.id join role r on r.id=a.roleid where u.username=?"/>  
+             authorities-by-username-query="SELECT u.username, r. NAME AS t_authority FROM t_user u JOIN t_authority a ON a.user_id = u.id JOIN t_role r ON r.id = a.role_id WHERE u.username = ?"/>  
         </sec:authentication-provider>    
+        
 </sec:authentication-manager>    
 
 

@@ -1,5 +1,6 @@
 package easyFrame.controller;
 
+import org.apache.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import easyFrame.service.ResponseObject;
 
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
-	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
-	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
-		if (error != null) {
-			return "login-failure";
-		}
-		return "login";
+	
+	@RequestMapping(value = "/loginTrans.do")
+	public String loginDispacher() {
+		System.out.println("--------------------------");
+		return "admin/home";
 	}
 }

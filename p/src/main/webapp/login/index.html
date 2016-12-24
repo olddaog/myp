@@ -21,15 +21,15 @@
 
 	<body>
 		<div id="container">
-			<form  action='${pageContext.request.contextPath }/login'>
+			<form  action="/j_spring_security_check" method="post">
 				<div class="login">登录</div>
 				<div class="username-text">账号:</div>
 				<div class="password-text">密码:</div>
 				<div class="username-field">
-					<input type="text" name="username" value="azmind" />
+					<input type="text" name="j_username" value="azmind" />
 				</div>
 				<div class="password-field">
-					<input type="password" name="password" value="azmind" />
+					<input type="password" name="j_password" value="azmind" />
 				</div>
 				<input type="checkbox" name="remember-me" id="remember-me" /><label for="remember-me">Remember me</label>
 				<div class="forgot-usr-pwd">Forgot <a href="#">username</a> or <a href="#">password</a>?</div>
