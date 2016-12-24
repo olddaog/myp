@@ -35,10 +35,6 @@ public class Menu {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_children")
 	private Set<Menu> children;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "menu_role")
-	private Set<Role> roles;
-
 	public Long getId() {
 		return id;
 	}
@@ -118,12 +114,6 @@ public class Menu {
 		this.children = children;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 
 }
