@@ -27,7 +27,7 @@ public class User {
 	@ManyToOne
 	private Org org;
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role")	
+	@JoinTable(name = "t_authority")	
 	private Set<Role> role;
 	public Long getId() {
 		return id;

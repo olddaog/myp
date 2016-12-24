@@ -26,6 +26,7 @@ public class MenuManagerImp extends GenericManagerImpl<Menu, Long> implements Me
 	MenuDao menuDao;
 
 	public MenuManagerImp() {
+	
 	}
 
 	@Autowired

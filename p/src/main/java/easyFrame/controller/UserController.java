@@ -1,21 +1,41 @@
 package easyFrame.controller;
 
-import org.apache.http.HttpRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
-import easyFrame.service.ResponseObject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-	
+
 	@RequestMapping(value = "/loginTrans.do")
-	public String loginDispacher() {
+	public String loginDispacher(HttpServletRequest request) {
 		System.out.println("--------------------------");
+		SecurityContextImpl securityContextImpl = (SecurityContextImpl) request.getSession()
+				.getAttribute("SPRING_SECURITY_CONTEXT");
+		// 登录名
+		System.out.println("Username:" + securityContextImpl.getAuthentication().getName());
+		// 登录密码，未加密的
+		System.out.println("Credentials:" + securityContextImpl.getAuthentication().getCredentials());
+		WebAuthenticationDetails details = (WebAuthenticationDetails) securityContextImpl.getAuthentication()
+				.getDetails();
+		// 获得访问地址
+		System.out.println("RemoteAddress" + details.getRemoteAddress());
+		// 获得sessionid
+		System.out.println("SessionId" + details.getSessionId());
+		// 获得当前用户所拥有的权限
+		@SuppressWarnings("unchecked")
+		List<GrantedAuthority> authorities = (List<GrantedAuthority>) securityContextImpl.getAuthentication()
+				.getAuthorities();
+		for (GrantedAuthority grantedAuthority : authorities) {
+			System.out.println("Authority" + grantedAuthority.getAuthority());
+		}
 		return "admin/home";
 	}
 }

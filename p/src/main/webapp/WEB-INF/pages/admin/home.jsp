@@ -180,7 +180,7 @@
 		alert(JSON.stringify(menujson));
 
 		$.ajax({
-			url : 'admin/menu/save.do',
+			url : '/admin/menu/save.do',
 			type : 'POST',
 			data : JSON.stringify(menujson),
 			contentType : "application/json;charset=utf-8",
@@ -195,7 +195,7 @@
 
 	function buildMenu() {
 		$.ajax({
-			url : 'admin/menu/getmenu.do',
+			url : '/admin/menu/getmenu.do',
 			type : 'GET',
 			data : '',
 			dataType : 'json',

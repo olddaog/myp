@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import easyFrame.model.Menu;
+import easyFrame.model.User;
 import easyFrame.service.MenuManager;
 import easyFrame.service.ResponseObject;
 import easyFrame.service.SuccessResponse;
+import easyFrame.service.UserManager;
 
 //------------------------------------////.///////------------------------njjjnjnj--
 @Controller
@@ -35,6 +39,8 @@ import easyFrame.service.SuccessResponse;
 public class MenuController {
 	@Autowired
     MenuManager menuManager;
+	@Autowired
+	UserManager  userManager;
 	@RequestMapping(value = "/save.do")
 	@ResponseBody
 	public ResponseObject saveMenu(@RequestBody Menu menu ) {
@@ -48,13 +54,19 @@ public class MenuController {
 		 return new SuccessResponse(res);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/getmenu.do")
 	@ResponseBody
 	@Transactional
-	public ResponseObject getMenu(){
-		List<Menu> aa = menuManager.getAll();
-		ArrayList list = new ArrayList();
-		//System.out.println(JSONObject.fromObject(aa.get(0)));
+	public ResponseObject getMenu(HttpServletRequest request){
+	String username = request.getRemoteUser();
+    User   user=	userManager.getByUserName(username);
+	List<Menu> aa = menuManager.getAll();
+	ArrayList list = new ArrayList();
+   //获得所有角色，然后把所有角色对应的菜单整合成一块
+	
+	
+	
 		list.add(aa.get(0));
 		return new SuccessResponse(list);
 	}
