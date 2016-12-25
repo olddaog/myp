@@ -1,6 +1,7 @@
 package easyFrame.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +61,7 @@ public class MenuController {
 		List<Menu> aa = menuManager.getAll();
 		ArrayList list = new ArrayList();
 		// 获得所有角色，然后把所有角色对应的菜单整合成一块
-		System.out.println(JSONObject.fromObject(user));
+		//System.out.println(JSONObject.fromObject(user));
 		Set<Role> roles = user.getRole();
 		Iterator<Role> itera = roles.iterator();
 		ArrayList<Menu> menus = new ArrayList<Menu>();
@@ -71,16 +72,21 @@ public class MenuController {
 				menus.add(menu);
 			}
 		}
-
-		return new SuccessResponse(list);
+		
+		//menu去重复
+		
+		HashMap<Long, Menu> map = new HashMap<Long, Menu>();
+		for (Menu menu : menus) {
+			if(menu.getChildren().size()>0){
+				map.put(menu.getId(), menu);
+			}
+		}
+		
+		
+		return new SuccessResponse(map.values());
 	}
 	
 	
-	@SuppressWarnings("unused")
-	private List buildTree(List<Menu> menus){
-		
-		
-		return menus;
-	}
+	
 
 }
