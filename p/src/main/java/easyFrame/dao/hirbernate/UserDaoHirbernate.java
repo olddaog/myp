@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import easyFrame.dao.MenuDao;
 import easyFrame.dao.UserDao;
 import easyFrame.model.Menu;
 import easyFrame.model.User;
-
+@Repository(value="userDao")
 public class UserDaoHirbernate extends GernericDaoHirbernate<User, Long> implements UserDao {
+	
 	public UserDaoHirbernate() {
 		super(User.class);
 	}

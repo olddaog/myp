@@ -1,4 +1,4 @@
-package easyFrame.service;
+package easyFrame.model;
 
 import java.io.Serializable;
 

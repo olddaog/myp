@@ -18,7 +18,7 @@ import easyFrame.dao.MenuDao;
 import easyFrame.model.Menu;
 import easyFrame.service.MenuManager;
 
-@Service("menuManager")
+@Service(value="menuManager")
 @Transactional
 public class MenuManagerImp extends GenericManagerImpl<Menu, Long> implements MenuManager{
 

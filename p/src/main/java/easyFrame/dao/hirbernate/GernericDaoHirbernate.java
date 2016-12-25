@@ -14,6 +14,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ import easyFrame.dao.GenericDao;
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
+
 public class GernericDaoHirbernate<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
@@ -288,9 +290,8 @@ public class GernericDaoHirbernate<T, PK extends Serializable> implements Generi
      */
    
 
-static{
+	public GernericDaoHirbernate() {
 	
-}
-   
+    } 
 	
 }

@@ -55,11 +55,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
 
-@Autowired
-protected GenericDao<T, PK> dao;
-	public List<T> getAll() {	
-		return dao.getAll();
-	}
+
+    protected GenericDao<T, PK> dao;
+
+
+    public GenericManagerImpl() {
+   
+    }
+
+    public GenericManagerImpl(GenericDao<T, PK> genericDao) {
+        this.dao = genericDao;
+    }
 
 
 	public T get(PK id) {
@@ -108,11 +114,12 @@ protected GenericDao<T, PK> dao;
 		// TODO Auto-generated method stub
 		
 	}
-	
-	 public GenericManagerImpl() {
-	    }
 
-	    public GenericManagerImpl(GenericDao<T, PK> genericDao) {
-	        this.dao = genericDao;
-	    }
+	public List<T> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	  
 }
