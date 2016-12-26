@@ -32,6 +32,7 @@ public class Menu {
 	private String state;
 	private HashMap attributes = new HashMap();
 	private Long parentId;
+	private String url;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_children")
 	private Set<Menu> children;
@@ -112,6 +113,14 @@ public class Menu {
 
 	public void setChildren(Set<Menu> children) {
 		this.children = children;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 

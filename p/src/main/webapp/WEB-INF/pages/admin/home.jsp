@@ -103,7 +103,11 @@
 			title="east" style="width: 10%;"></div>
 		<div id="con"  data-options="region:'center'">
 			<div id="tt" class="easyui-tabs" data-options="tools:'#tab-tools'"
-				style="width: 100%; height: 100%"></div>
+				style="width: 100%; height: 100%">
+				
+				
+				
+				</div>
 			
 		</div>
 	</div>
@@ -161,8 +165,7 @@
 							'add',
 							{
 								title : $("#tree").tree("getSelected").text,
-								content : '<div style="padding:10px">Content'
-										+ index + '</div>',
+								content : '<iframe style="width: 100%; height: 100%;" scrolling="hidden" frameborder="0" src="'+$("#tree").tree("getSelected").url +'"/>',
 								closable : true
 							});
 				});
