@@ -15,7 +15,7 @@
 	src="/js/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
 </head>
 <body>
-<table class="easyui-datagrid" style="width:100%;height:250px"
+<table class="easyui-datagrid" style="width:100%;height:400px"
 			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
 		<thead>
 			<tr>
@@ -27,15 +27,15 @@
 	</table>
 	<script type="text/javascript">
 		var toolbar = [{
-			text:'Add',
+			text:'新建',
 			iconCls:'icon-add',
 			handler:function(){alert('add')}
 		},{
-			text:'Cut',
+			text:'删除',
 			iconCls:'icon-cut',
 			handler:function(){alert('cut')}
 		},'-',{
-			text:'Save',
+			text:'保存',
 			iconCls:'icon-save',
 			handler:function(){alert('save')}
 		}];

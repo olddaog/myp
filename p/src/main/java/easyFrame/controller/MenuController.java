@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import easyFrame.model.Menu;
 import easyFrame.model.Role;
@@ -86,6 +87,12 @@ public class MenuController {
 		return new SuccessResponse(map.values());
 	}
 	
+	
+	@RequestMapping(value = "/showMenuManager.do")
+public String  showMenuManager(){
+	
+	return "admin/menuManager";
+}
 	
 	
 
