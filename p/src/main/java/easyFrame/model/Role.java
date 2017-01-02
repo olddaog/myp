@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="t_role")
-public class Role {
+public class Role extends BaseObject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -39,6 +39,21 @@ public class Role {
 	}
 	public void setMenus(Set<Menu> menus) {
 		this.menus = menus;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

@@ -40,8 +40,11 @@ public class MenuManagerImp extends GenericManagerImpl<Menu, Long> implements Me
 	
 	
 	public boolean makeEasyUItreeByRoleId(Long id) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public List<Menu> getMenusByParentId(Long parentId) {
+		return menuDao.getMenusByParentId(parentId);
 	}
 	
 	

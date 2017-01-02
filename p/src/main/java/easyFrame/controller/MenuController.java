@@ -1,14 +1,17 @@
 package easyFrame.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,6 @@ import easyFrame.service.ResponseObject;
 import easyFrame.service.SuccessResponse;
 import easyFrame.service.UserManager;
 
-//------------------------------------////.///////------------------------njjjnjnj--
 @Controller
 @RequestMapping("/admin/menu")
 public class MenuController {
@@ -44,10 +46,7 @@ public class MenuController {
 	public ResponseObject saveMenu(@RequestBody Menu menu) {
 		menu = menuManager.save(menu);
 		Menu parent = menuManager.get(menu.getParentId());
-		System.out.println(JSONObject.fromObject(parent));
 		parent.getChildren().add(menu);
-		System.out.println(parent.getChildren().size() + "----9999999999999------------------");
-		// parent.addChildren(menu);
 		Menu res = menuManager.save(parent);
 		return new SuccessResponse(res);
 	}
@@ -55,14 +54,12 @@ public class MenuController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/getmenu.do")
 	@ResponseBody
-	@Transactional
 	public ResponseObject getMenu(HttpServletRequest request) {
 		String username = request.getRemoteUser();
 		User user = userManager.getByUserName(username);
 		List<Menu> aa = menuManager.getAll();
 		ArrayList list = new ArrayList();
 		// 获得所有角色，然后把所有角色对应的菜单整合成一块
-		//System.out.println(JSONObject.fromObject(user));
 		Set<Role> roles = user.getRole();
 		Iterator<Role> itera = roles.iterator();
 		ArrayList<Menu> menus = new ArrayList<Menu>();
@@ -73,27 +70,59 @@ public class MenuController {
 				menus.add(menu);
 			}
 		}
-		
-		//menu去重复
-		
 		HashMap<Long, Menu> map = new HashMap<Long, Menu>();
 		for (Menu menu : menus) {
-			if(menu.getChildren().size()>0){
+			if (menu.getChildren().size() > 0) {
 				map.put(menu.getId(), menu);
 			}
 		}
-		
-		
 		return new SuccessResponse(map.values());
+	}
+
+	@RequestMapping(value = "/showMenuManager.do")
+	public String showMenuManager() {
+		return "admin/menuManager";
+	}
+
+	@SuppressWarnings("unused")
+	@ResponseBody
+	@RequestMapping(value = "/getAllMenu.do")
+	public ResponseObject getAllMenu() {
+		//获取所有根节点
+		return new SuccessResponse(menuManager.getMenusByParentId(0l));
+	}
+
+	// 解析tree
+	private List getChildrens(List<Menu> menus) {
+
+		List<Menu> arr=new ArrayList<Menu>();
+		for(Menu menu:menus){
+			//如果有孩子
+			if(menu.getChildren().size()>0){
+				arr.addAll(menu.getChildren());
+				 getChildrens(arr);
+			}
+		}
+		
+		System.out.println(JSONArray.fromObject(arr));
+		return menus;
+		
 	}
 	
 	
-	@RequestMapping(value = "/showMenuManager.do")
-public String  showMenuManager(){
 	
-	return "admin/menuManager";
-}
-	
-	
+	public static void main(String[] args) {
+		
+	}
 
+	
+	public Integer test(){
+		
+	//	1+2+3+4+5+6
+		
+	//	1+(i+1)
+		
+		return null;
+		
+	}
 }

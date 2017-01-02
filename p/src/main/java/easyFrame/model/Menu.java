@@ -19,9 +19,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import net.sf.json.JSONObject;
+
 @Entity
 @Table(name = "t_menu")
-public class Menu {
+public class Menu extends BaseObject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -36,6 +38,7 @@ public class Menu {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_children")
 	private Set<Menu> children;
+
 	public Long getId() {
 		return id;
 	}
@@ -123,6 +126,30 @@ public class Menu {
 		this.url = url;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public boolean equals(Object o) {
+		Menu m = (Menu) o;
+		// System.out.println(aa.getText()+"=================");
+		if ((m.getText() + "").equals(this.getText() + "")) {
+			if ((this.getId() + "").equals(m.getId() + "")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		if (this.getId() != null) {
+			return Integer.parseInt(this.getId() + "");
+		}
+		return 0;
+	}
 
 }

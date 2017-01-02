@@ -1,8 +1,13 @@
 package easyFrame.dao.hirbernate;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 
@@ -20,6 +25,24 @@ public class menuDaoHirbernate extends GernericDaoHirbernate<Menu, Long>implemen
 
 	public menuDaoHirbernate() {
 		super(Menu.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Menu> getMenusByParentId(Long parentId) {
+		
+		List list = getSession().createCriteria(Menu.class).add(Restrictions.eq("parentId", parentId)).list();
+		
+		for(int i=0;i<list.size();i++){
+			System.out.println(list.get(i).hashCode());
+		}
+				
+				
+		Collection<Menu> result = new LinkedHashSet<Menu>(list);  
+		 
+		  
+		  
+		  return new ArrayList<Menu>(result);
+		  
 	}
 	
 }

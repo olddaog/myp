@@ -117,7 +117,7 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
 
 	public List<T> getAll() {
 		// TODO Auto-generated method stub
-		   return dao.getAll();
+		   return dao.getAllDistinct();
 	}
 	
 	

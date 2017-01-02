@@ -38,4 +38,10 @@ public class UserController {
 		}
 		return "admin/home";
 	}
+	
+	@RequestMapping(value = "/showUserManager.do")
+	public String showUserManager(){
+		return "admin/userManager";	
+	}
+	
 }

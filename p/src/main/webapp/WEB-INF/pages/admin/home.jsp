@@ -46,25 +46,7 @@
 
 
 	<div id="cc" class="easyui-layout" style="width: 100%; height: 80%;">
-		<div id="light" class="white_content">
-			<form id="ff" method="post">
-				<table cellpadding="5" border="1">
-					<tr>
-						<td>Name:</td>
-						<td><input class="easyui-textbox" type="text" name="name"
-							data-options="required:true"></input> <a
-							href="javascript:void(0)" class="easyui-linkbutton"
-							onclick="sendMenu()">Submit</a></td>
-					</tr>
-
-
-				</table>
-			</form>
-			<a href="javascript:void(0)"
-				onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
-				Close</a>
-		</div>
-		<div id="fade" class="black_overlay"></div>
+	
 		<div
 			data-options="region:'north',split:true,hideCollapsedContent:false"
 			style="width: 300px; height: 100px; background-color: 289898">
@@ -151,11 +133,7 @@
 		        });
 		    });
 		}); */
-	function showMenuframe() {
-		document.getElementById('light').style.display = 'block';
-		document.getElementById('fade').style.display = 'block';
-	}
-
+	
 	$(function() {
 
 		$("#tree").click(
@@ -172,30 +150,7 @@
 
 	});
 
-	function sendMenu() {
-		var selected = $("#tree").tree("getSelected");
-		var child = new Object();
-
-		child['parentId'] = selected.id;
-		child['text'] = "新建菜单";
-
-		menujson = child;
-		alert(JSON.stringify(menujson));
-
-		$.ajax({
-			url : '/admin/menu/save.do',
-			type : 'POST',
-			data : JSON.stringify(menujson),
-			contentType : "application/json;charset=utf-8",
-			dataType : 'json',
-			success : function(data) {
-				alert(JSON.stringify(data))
-				//	$('#tree').tree('append',{parent:parent.target,data:node}) 	
-			}
-		})
-
-	}
-
+	
 	function buildMenu() {
 		$.ajax({
 			url : '/admin/menu/getmenu.do',
