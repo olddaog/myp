@@ -10,6 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import easyFrame.service.ResponseObject;
+
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
@@ -43,5 +45,14 @@ public class UserController {
 	public String showUserManager(){
 		return "admin/userManager";	
 	}
+	
+	
+
+	
+	
+	
+	
+	
+	
 	
 }

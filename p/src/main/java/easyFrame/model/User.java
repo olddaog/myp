@@ -19,10 +19,10 @@ public class User  extends BaseObject{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String name;
-	private String userName;
-	private  String password;
-	private  boolean enabled;
+	private String name;      //真名
+	private String userName;  //账号
+	private  String password; //密码
+	private  boolean enabled; //是否启用
 	
 	@ManyToOne
 	private Org org;
@@ -79,6 +79,12 @@ public class User  extends BaseObject{
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }
