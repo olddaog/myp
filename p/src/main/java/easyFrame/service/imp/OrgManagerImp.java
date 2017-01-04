@@ -1,5 +1,7 @@
 package easyFrame.service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class OrgManagerImp extends GenericManagerImpl<Org, Long> implements OrgM
 	public OrgManagerImp(OrgDao orgDao){
 		super(orgDao);
 		this.orgDao=orgDao;
+	}
+	public List<Org> getOrgsByParentId(Long parentId) {	
+		return getOrgsByParentId(parentId);
 	}
 
 }

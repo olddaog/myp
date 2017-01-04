@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Parent;
 @Entity
 @Table(name="t_org")
 public class Org extends BaseObject {
@@ -17,6 +19,7 @@ public class Org extends BaseObject {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private Long  parentId;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "org_children")
 	private Set<Org> children;
@@ -52,6 +55,12 @@ public class Org extends BaseObject {
 	}
 	public void setChildren(Set<Org> children) {
 		this.children = children;
+	}
+	public Long getParentId() {
+		return parentId;
+	}
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 	
 	

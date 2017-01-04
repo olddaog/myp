@@ -31,17 +31,10 @@ public class menuDaoHirbernate extends GernericDaoHirbernate<Menu, Long>implemen
 	public List<Menu> getMenusByParentId(Long parentId) {
 		
 		List list = getSession().createCriteria(Menu.class).add(Restrictions.eq("parentId", parentId)).list();
-		
-		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i).hashCode());
-		}
-				
 				
 		Collection<Menu> result = new LinkedHashSet<Menu>(list);  
-		 
-		  
-		  
-		  return new ArrayList<Menu>(result);
+		   
+		return new ArrayList<Menu>(result);
 		  
 	}
 	

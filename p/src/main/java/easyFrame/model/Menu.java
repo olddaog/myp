@@ -135,6 +135,7 @@ public class Menu extends BaseObject {
 	@Override
 	public boolean equals(Object o) {
 		Menu m = (Menu) o;
+		System.out.println(this.text.equals(m.getText()));
 		// System.out.println(aa.getText()+"=================");
 		if ((m.getText() + "").equals(this.getText() + "")) {
 			if ((this.getId() + "").equals(m.getId() + "")) {
@@ -146,6 +147,7 @@ public class Menu extends BaseObject {
 
 	@Override
 	public int hashCode() {
+		System.out.println(this.getId());
 		if (this.getId() != null) {
 			return Integer.parseInt(this.getId() + "");
 		}
