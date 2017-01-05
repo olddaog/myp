@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
+<html   style="height: 100%;">
 <head>
 <meta charset="UTF-8">
 <title>Custom Collapse Title in Layout - jQuery EasyUI Demo</title>
@@ -42,10 +42,10 @@
 }
 </style>
 </head>
-<body>
+<body  style="height: 95%;">
 
 
-	<div id="cc" class="easyui-layout" style="width: 100%; height: 80%;">
+	<div id="cc" class="easyui-layout" style="width: 100%; height: 100%;">
 	
 		<div
 			data-options="region:'north',split:true,hideCollapsedContent:false"

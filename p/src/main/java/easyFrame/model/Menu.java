@@ -129,7 +129,7 @@ public class Menu extends BaseObject {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return getClass().getName() + "@" + Integer.toHexString(hashCode());
 	}
 
 	@Override
@@ -147,8 +147,9 @@ public class Menu extends BaseObject {
 
 	@Override
 	public int hashCode() {
-		System.out.println(this.getId());
+	
 		if (this.getId() != null) {
+			System.out.println(this.getId());
 			return Integer.parseInt(this.getId() + "");
 		}
 		return 0;

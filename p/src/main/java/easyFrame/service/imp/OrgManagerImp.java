@@ -18,7 +18,7 @@ public class OrgManagerImp extends GenericManagerImpl<Org, Long> implements OrgM
 		this.orgDao=orgDao;
 	}
 	public List<Org> getOrgsByParentId(Long parentId) {	
-		return getOrgsByParentId(parentId);
+		return orgDao.getOrgsByParentId(parentId);
 	}
 
 }

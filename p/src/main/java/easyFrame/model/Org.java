@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Parent;
 @Entity
@@ -19,6 +20,7 @@ public class Org extends BaseObject {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String text;
 	private Long  parentId;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "org_children")
@@ -61,6 +63,13 @@ public class Org extends BaseObject {
 	}
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}
+	@Transient
+	public String getText() {
+		return this.name;
+	}
+	public void setText(String text) {
+		this.text = this.name;
 	}
 	
 	

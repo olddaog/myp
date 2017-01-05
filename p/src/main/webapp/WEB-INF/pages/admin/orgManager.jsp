@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html style="height: 100%;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -44,7 +44,7 @@
 }
 </style>
 
-<body>
+<body style="height: 95%;">
 <div id="light" class="white_content">
 			<form id="ff" method="post">
 				<table cellpadding="5" border="1">
@@ -64,7 +64,8 @@
 				Close</a>
 		</div>
 		<div id="fade" class="black_overlay"></div>
-	<div id="cc" style="width:100%;height:600px;">
+		<div style="height: 100%;">
+	<div id="cc" style="width:100%;height: 100%;">
 		<div data-options="region:'west'" style="width:40%;">
 		<ul id="tree" class="easyui-tree"
 				data-options="
@@ -84,12 +85,24 @@
 		</div>
 				
 		<div data-options="region:'center'" style="height:100%;padding:10px">
-			
+			<table class="easyui-datagrid" style="width:100%;height:100%"
+			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:200">姓名</th>
+				<th data-options="field:'id',width:100">年龄</th>
+				<th data-options="field:'id',width:50">性别</th>
+				
+			</tr>
+		</thead>
+	</table>
+	
 		</div>
+	</div>
 	</div>
 	<script type="text/javascript">
 	$.ajax({
-		url : '/admin/menu/getAllMenu.do',
+		url : '/admin/org/list.do?parentId=0',
 		type : 'GET',
 		data : '',
 		dataType : 'json',
@@ -152,6 +165,21 @@
 				height: (c.height() + newHeight - oldHeight)
 			});
 		}
+	</script>
+	<script type="text/javascript">
+		var toolbar = [{
+			text:'新建',
+			iconCls:'icon-add',
+			handler:function(){alert('add')}
+		},{
+			text:'删除',
+			iconCls:'icon-cut',
+			handler:function(){alert('cut')}
+		},'-',{
+			text:'保存',
+			iconCls:'icon-save',
+			handler:function(){alert('save')}
+		}];
 	</script>
 	<div id="mm" class="easyui-menu" style="width: 120px;">
 	<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>

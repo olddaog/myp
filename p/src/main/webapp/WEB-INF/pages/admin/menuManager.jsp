@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html  style="height: 100%;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -44,7 +44,7 @@
 }
 </style>
 
-<body>
+<body  style="height: 95%;">
 <div id="light" class="white_content">
 			<form id="ff" method="post">
 				<table cellpadding="5" border="1">
@@ -64,7 +64,7 @@
 				Close</a>
 		</div>
 		<div id="fade" class="black_overlay"></div>
-	<div id="cc" style="width:100%;height:600px;">
+	<div id="cc" style="width:100%;height:100%">
 		<div data-options="region:'west'" style="width:40%;">
 		<ul id="tree" class="easyui-tree"
 				data-options="

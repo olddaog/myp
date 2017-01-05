@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html  style="height: 100%;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -14,8 +14,8 @@
 <script type="text/javascript"
 	src="/js/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
 </head>
-<body>
-<table class="easyui-datagrid" style="width:100%;height:400px"
+<body style="height: 95%;">
+<table class="easyui-datagrid" style="width:100%;height:100%"
 			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
 		<thead>
 			<tr>
