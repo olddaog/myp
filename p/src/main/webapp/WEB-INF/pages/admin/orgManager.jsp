@@ -71,14 +71,17 @@
 				data-options="
 				onContextMenu: function(e,node){
 					e.preventDefault();
-					
 					$(this).tree('select',node.target);
 					$('#mm').menu('show',{
 						left: e.pageX,
 						top: e.pageY
 					});
-				}
-			">
+				},
+				
+				onSelect:function(e,node){
+					var selected = $('#tree').tree('getSelected');
+			     	alert(selected.text);
+				}">
 			</ul>
 		
 		
@@ -101,16 +104,9 @@
 	</div>
 	</div>
 	<script type="text/javascript">
-	$.ajax({
-		url : '/admin/org/list.do?parentId=0',
-		type : 'GET',
-		data : '',
-		dataType : 'json',
-		success : function(data) {
-			alert(JSON.stringify(data.resp_data))
-			$('#tree').tree("loadData", data.resp_data)
-		}
-	})
+	
+	
+	
 	
 	function showMenuframe() {
 		document.getElementById('light').style.display = 'block';
@@ -142,31 +138,17 @@
 	
 		$(function(){
 			$('#cc').layout();
-			//setHeight();
+			$.ajax({
+				url : '/admin/org/list.do?parentId=0',
+				type : 'GET',
+				data : '',
+				dataType : 'json',
+				success : function(data) {
+					alert(JSON.stringify(data.resp_data))
+					$('#tree').tree("loadData", data.resp_data)
+				}
+			})
 		});
-		
-		function addItem(){
-			$('#cc').layout('panel','center').append('<p>More Panel Content.</p>');
-		//	setHeight();
-		}
-		
-		function removeItem(){
-			$('#cc').layout('panel','center').find('p:last').remove();
-		//	setHeight();
-		}
-		
-		function setHeight(){
-			var c = $('#cc');
-			var p = c.layout('panel','center');	// get the center panel
-			var oldHeight = p.panel('panel').outerHeight();
-			p.panel('resize', {height:'auto'});
-			var newHeight = p.panel('panel').outerHeight();
-			c.layout('resize',{
-				height: (c.height() + newHeight - oldHeight)
-			});
-		}
-	</script>
-	<script type="text/javascript">
 		var toolbar = [{
 			text:'新建',
 			iconCls:'icon-add',
@@ -180,6 +162,21 @@
 			iconCls:'icon-save',
 			handler:function(){alert('save')}
 		}];
+		
+		
+		
+		public function getUsersByOrgId(id){
+			$.ajax({
+				url : '/admin/org/list.do?parentId=0',
+				type : 'GET',
+				data : '',
+				dataType : 'json',
+				success : function(data) {
+					alert(JSON.stringify(data.resp_data))
+					$('#tree').tree("loadData", data.resp_data)
+				}
+			})
+		}
 	</script>
 	<div id="mm" class="easyui-menu" style="width: 120px;">
 	<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>

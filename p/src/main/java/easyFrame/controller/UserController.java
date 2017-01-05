@@ -8,8 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import easyFrame.model.User;
 import easyFrame.service.ResponseObject;
 
 @Controller
@@ -39,6 +42,17 @@ public class UserController {
 			System.out.println("Authority" + grantedAuthority.getAuthority());
 		}
 		return "admin/home";
+	}
+	
+	//新建用户
+	@RequestMapping(value = "/save.do")
+	@ResponseBody
+	public ResponseObject save(@RequestBody User usr){
+		//密码加密操作
+		//
+		
+		return null;
+		
 	}
 	
 	@RequestMapping(value = "/showUserManager.do")
