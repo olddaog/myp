@@ -2,6 +2,7 @@ package easyFrame.dao.hirbernate;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,17 +33,36 @@ public class menuDaoHirbernate extends GernericDaoHirbernate<Menu, Long>implemen
 		
 		List list = getSession().createCriteria(Menu.class).add(Restrictions.eq("parentId", parentId)).list();
 		
-		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i).hashCode());
-		}
-				
-				
 		Collection<Menu> result = new LinkedHashSet<Menu>(list);  
-		 
+		   
+		return new ArrayList<Menu>(result);
 		  
-		  
-		  return new ArrayList<Menu>(result);
-		  
+	}
+	
+	
+	public static void main(String[] args) {
+		HashSet set = new HashSet();
+		ArrayList ls = new ArrayList();
+		
+		for(int i=0;i<10;i++){
+		Menu m = new Menu();
+		m.toString();
+		m.setId(4l);
+		m.setText("aaa");
+		ls.add(m);
+		
+		}
+		String a = "";
+		a.toString();
+		ls.toString();
+		"aaa".toString();
+		
+//		for(int i=0;i<ls.size();i++){
+//			System.out.println("address" + i + ls.get(i));
+//		}
+		
+		Collection<Menu> result = new LinkedHashSet<Menu>(ls); 
+		System.out.println(ls);
 	}
 	
 }

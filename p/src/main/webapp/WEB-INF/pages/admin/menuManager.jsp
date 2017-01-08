@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html  style="height: 100%;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -44,13 +44,13 @@
 }
 </style>
 
-<body>
+<body  style="height: 95%;">
 <div id="light" class="white_content">
 			<form id="ff" method="post">
 				<table cellpadding="5" border="1">
 					<tr>
 						<td>菜单名:</td>
-						<td><input  type="text" name="name"
+						<td><input id="tss"  type="text" name="name"
 							data-options="required:true"></input> <a
 							href="javascript:void(0)" class="easyui-linkbutton"
 							onclick="sendMenu(this)">Submit</a></td>
@@ -64,7 +64,7 @@
 				Close</a>
 		</div>
 		<div id="fade" class="black_overlay"></div>
-	<div id="cc" style="width:100%;height:600px;">
+	<div id="cc" style="width:100%;height:100%">
 		<div data-options="region:'west'" style="width:40%;">
 		<ul id="tree" class="easyui-tree"
 				data-options="
@@ -107,11 +107,11 @@
 	
 	function sendMenu(dom) {
 		var selected = $("#tree").tree("getSelected");
-		alert(dom.id)
+		//alert(dom.id)
 		var child = new Object();
 
 		child['parentId'] = selected.id;
-		child['text'] = dome;
+		child['text'] = document.getElementById("tss").value;
 		menujson = child;
 		alert(JSON.stringify(menujson));
 		$.ajax({

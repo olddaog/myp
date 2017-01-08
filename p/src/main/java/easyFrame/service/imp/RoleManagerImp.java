@@ -11,21 +11,12 @@ import easyFrame.service.RoleManager;
 @Service(value="roleManager")
 @Transactional
 public class RoleManagerImp extends GenericManagerImpl<Role, Long> implements RoleManager{
-
-	@Autowired
 	RoleDao  roleDao;
-
-	public RoleManagerImp() {
-	
-	}
-
 	@Autowired
 	public RoleManagerImp(
 			RoleDao roleDao) {
 		super(roleDao);
 		this.roleDao =roleDao;
 	}
-
-	
 }
  

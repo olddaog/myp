@@ -129,12 +129,13 @@ public class Menu extends BaseObject {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return getClass().getName() + "@" + Integer.toHexString(hashCode());
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		Menu m = (Menu) o;
+		System.out.println(this.text.equals(m.getText()));
 		// System.out.println(aa.getText()+"=================");
 		if ((m.getText() + "").equals(this.getText() + "")) {
 			if ((this.getId() + "").equals(m.getId() + "")) {
@@ -146,7 +147,9 @@ public class Menu extends BaseObject {
 
 	@Override
 	public int hashCode() {
+	
 		if (this.getId() != null) {
+			System.out.println(this.getId());
 			return Integer.parseInt(this.getId() + "");
 		}
 		return 0;

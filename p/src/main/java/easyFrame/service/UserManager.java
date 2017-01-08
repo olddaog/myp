@@ -6,5 +6,7 @@ public interface UserManager extends GenericManager<User, Long> {
 
 	public User getByUserName(String userName);
 	
+	public User SaveUser(User user);
+	
 	
 }
