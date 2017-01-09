@@ -11,9 +11,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(name="t_role")
-public class Role extends BaseObject {
+public class Role extends BaseObject implements GrantedAuthority {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -54,6 +56,11 @@ public class Role extends BaseObject {
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	//---------------------------------
+	public String getAuthority() {
+		// TODO Auto-generated method stub
+		return this.getName();
 	}
 	
 	

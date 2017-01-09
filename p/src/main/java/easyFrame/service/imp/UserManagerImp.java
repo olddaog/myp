@@ -6,11 +6,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import easyFrame.dao.MenuDao;
+
 import easyFrame.dao.UserDao;
-import easyFrame.model.Menu;
+
 import easyFrame.model.User;
-import easyFrame.service.MenuManager;
+
 import easyFrame.service.UserManager;
 @Service(value="userManager")
 @Transactional
@@ -39,11 +39,15 @@ public class UserManagerImp extends GenericManagerImpl<User, Long> implements Us
 		user.setPassword(passwordEncoder.encode(user.getPassword()));	
 		return userDao.save(user);
 	}
+	
+	
 	//注入
 	@Autowired
 	@Qualifier("passwordEncoder")
 	public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
+	String tmp = this.passwordEncoder.encode("123");
+	System.out.println(tmp);
 	}
 
 	

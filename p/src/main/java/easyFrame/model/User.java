@@ -1,5 +1,6 @@
 package easyFrame.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,9 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name="t_user")
-public class User  extends BaseObject{
+public class User  extends BaseObject implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -26,8 +30,7 @@ public class User  extends BaseObject{
 	
 	@ManyToOne
 	private Org org;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "t_authority")	
+	
 	private Set<Role> role;
 	public Long getId() {
 		return id;
@@ -47,6 +50,8 @@ public class User  extends BaseObject{
 	public void setOrg(Org org) {
 		this.org = org;
 	}
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "t_authority")	
 	public Set<Role> getRole() {
 		return role;
 	}
@@ -85,6 +90,26 @@ public class User  extends BaseObject{
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.getRole();
+	}
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
