@@ -32,7 +32,7 @@ value="org.springframework.web.servlet.view.JstlView" />
 
 </bean> 
 
-    <context:component-scan base-package="com.will" >   
+    <context:component-scan base-package="easyFrame" >   
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />    
     </context:component-scan>  

@@ -45,6 +45,7 @@
 </style>
 
 <body style="height: 95%;">
+
 <div id="light" class="white_content">
 			<form id="ff" method="post">
 				<table cellpadding="5" border="1">
@@ -66,7 +67,7 @@
 		<div id="fade" class="black_overlay"></div>
 		<div style="height: 100%;">
 	<div id="cc" style="width:100%;height: 100%;">
-		<div data-options="region:'west'" style="width:40%;">
+		<div data-options="region:'west'" style="width:30%;">
 		<ul id="tree" class="easyui-tree"
 				data-options="
 				onContextMenu: function(e,node){
@@ -79,8 +80,11 @@
 				},
 				
 				onSelect:function(e,node){
+				//
 					var selected = $('#tree').tree('getSelected');
+					getUsersByOrgId(selected.id)
 			     	alert(selected.text);
+			     	
 				}">
 			</ul>
 		
@@ -88,7 +92,7 @@
 		</div>
 				
 		<div data-options="region:'center'" style="height:100%;padding:10px">
-			<table class="easyui-datagrid" style="width:100%;height:100%"
+			<table id="dd" class="easyui-datagrid" style="width:95%;height:100%"
 			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
 		<thead>
 			<tr>
@@ -144,7 +148,7 @@
 				data : '',
 				dataType : 'json',
 				success : function(data) {
-					alert(JSON.stringify(data.resp_data))
+				//	alert(JSON.stringify(data.resp_data))
 					$('#tree').tree("loadData", data.resp_data)
 				}
 			})
@@ -165,15 +169,15 @@
 		
 		
 		
-		public function getUsersByOrgId(id){
+		function getUsersByOrgId(id){
 			$.ajax({
-				url : '/admin/org/list.do?parentId=0',
+				url : '/user/getUsersByOrg.do?orgId='+id,
 				type : 'GET',
 				data : '',
 				dataType : 'json',
 				success : function(data) {
-					alert(JSON.stringify(data.resp_data))
-					$('#tree').tree("loadData", data.resp_data)
+				//	alert(JSON.stringify(data.resp_data))
+					$('#dd').datagrid("loadData", data.resp_data)
 				}
 			})
 		}

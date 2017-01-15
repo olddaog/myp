@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -13,11 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import easyFrame.model.User;
+import easyFrame.service.OrgManager;
 import easyFrame.service.ResponseObject;
+import easyFrame.service.SuccessResponse;
+import easyFrame.service.UserManager;
 
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+@Autowired
+UserManager userManager;
+@Autowired
+OrgManager orgManager;
 
 	@RequestMapping(value = "/loginTrans.do")
 	public String loginDispacher(HttpServletRequest request) {
@@ -43,30 +51,30 @@ public class UserController {
 		}
 		return "admin/home";
 	}
-	
-	//新建用户
+
+	// 新建用户
 	@RequestMapping(value = "/save.do")
 	@ResponseBody
-	public ResponseObject save(@RequestBody User usr){
-		//密码加密操作
+	public ResponseObject save(@RequestBody User usr) {
+		// 密码加密操作
 		//
-		
-		return null;
-		
-	}
-	
-	@RequestMapping(value = "/showUserManager.do")
-	public String showUserManager(){
-		return "admin/userManager";	
-	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
+		return null;
+
+	}
+
+	@RequestMapping(value = "/showUserManager.do")
+	public String showUserManager() {
+		return "admin/userManager";
+	}
+
+	//////////////////////////////////
+
+	@ResponseBody
+	@RequestMapping(value = "/getUsersByOrg.do")
+	public ResponseObject getUsersByOrg(Long orgId) {
+			return  new SuccessResponse(userManager.getUsersbyOrg(orgManager.get(orgId)));
+
+	}
+
 }

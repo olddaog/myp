@@ -128,12 +128,18 @@ public class Menu extends BaseObject {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return getClass().getName() + "@" + Integer.toHexString(hashCode());
 	}
 
 	@Override
 	public boolean equals(Object o) {
+		if (!(o instanceof Menu)) {
+			return false;
+		}
+		
+		
+		
+		
 		Menu m = (Menu) o;
 		System.out.println(this.text.equals(m.getText()));
 		// System.out.println(aa.getText()+"=================");

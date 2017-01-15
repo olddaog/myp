@@ -16,6 +16,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.sun.org.glassfish.external.statistics.Statistic;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,6 +70,8 @@ public class GernericDaoHirbernate<T, PK extends Serializable> implements Generi
   //  private  static Session sess=null ;
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    private static Session session;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -159,12 +163,12 @@ public class GernericDaoHirbernate<T, PK extends Serializable> implements Generi
     }
 
     public Session getSession() throws HibernateException {
-       Session sess = getSessionFactory().getCurrentSession();
-        if (sess == null) {
+     //  Session session = getSessionFactory().getCurrentSession();
+        if (session == null) {
         	System.out.println("=============make session=================");
-            sess = getSessionFactory().openSession();
+        	session = getSessionFactory().openSession();
         }
-        return sess;
+        return session;
     }
     @Autowired
     @Required

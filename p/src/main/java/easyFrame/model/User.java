@@ -31,6 +31,8 @@ public class User  extends BaseObject implements UserDetails{
 	@ManyToOne
 	private Org org;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role")
 	private Set<Role> role;
 	public Long getId() {
 		return id;
@@ -50,8 +52,7 @@ public class User  extends BaseObject implements UserDetails{
 	public void setOrg(Org org) {
 		this.org = org;
 	}
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "t_authority")	
+		
 	public Set<Role> getRole() {
 		return role;
 	}
@@ -96,8 +97,8 @@ public class User  extends BaseObject implements UserDetails{
 		return this.getRole();
 	}
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userName;
 	}
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
