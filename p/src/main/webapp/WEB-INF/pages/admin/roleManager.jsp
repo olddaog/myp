@@ -29,19 +29,29 @@
 	</table>
 		</div>
 		<div data-options="region:'center'" >
-			<ul id="tree" class="easyui-tree"
-				data-options="
-				onContextMenu: function(e,node){
-					e.preventDefault();
-					
-					$(this).tree('select',node.target);
-					$('#mm').menu('show',{
-						left: e.pageX,
-						top: e.pageY
-					});
-				}
+			<table id="tg" class="easyui-treegrid" title="Editable TreeGrid" style="width:100%;height:95%"
+			data-options="
+				iconCls: 'icon-ok',
+				rownumbers: true,
+				animate: true,
+				collapsible: true,
+				fitColumns: true,
+				url: '/treegrid_data2.json',
+				method: 'get',
+				idField: 'id',
+				treeField: 'name',
+				showFooter: true
 			">
-			</ul>
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:180,editor:'text'">Task Name</th>
+				<th data-options="field:'persons',width:60,align:'right',editor:'numberbox'">Persons</th>
+				<th data-options="field:'begin',width:80,editor:'datebox'">Begin Date</th>
+				<th data-options="field:'end',width:80,editor:'datebox'">End Date</th>
+				<th data-options="field:'progress',width:120,formatter:formatProgress,editor:'numberbox'">Progress</th>
+			</tr>
+		</thead>
+	</table>
 		</div>
 	</div>
 
@@ -61,7 +71,7 @@
 		}];
 		
 		
-		$.ajax({
+		/* $.ajax({
 			url : '/admin/menu/getAllMenu.do',
 			type : 'GET',
 			data : '',
@@ -70,8 +80,18 @@
 				alert(JSON.stringify(data.resp_data))
 				$('#tree').tree("loadData", data.resp_data)
 			}
-		})
+		}) */
 		
+		function formatProgress(value){
+	    	if (value){
+		    	var s = '<div style="width:100%;border:1px solid #ccc">' +
+		    			'<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+		    			'</div>';
+		    	return s;
+	    	} else {
+		    	return '';
+	    	}
+		}
 	</script>
 </body>
 </html>
