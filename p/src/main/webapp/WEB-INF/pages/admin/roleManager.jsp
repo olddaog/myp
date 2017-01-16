@@ -15,16 +15,36 @@
 	src="/js/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
 </head>
 <body style="height: 95%;">
-<table class="easyui-datagrid" style="width:100%;height: 100%;"
+	<div class="easyui-layout" style="width:100%;height: 98%;">
+		<div id="p" data-options="region:'west'"  style="width:50%;height: 100%">
+		<table class="easyui-datagrid" style="width:100%;height: 100%;padding:5px;"
 			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
 		<thead>
 			<tr>
-				<th data-options="field:'name',width:200">角色名</th>
+				<th data-options="field:'name',width:100">角色名</th>
 				<th data-options="field:'id',width:100">角色编号</th>
 				
 			</tr>
 		</thead>
 	</table>
+		</div>
+		<div data-options="region:'center'" >
+			<ul id="tree" class="easyui-tree"
+				data-options="
+				onContextMenu: function(e,node){
+					e.preventDefault();
+					
+					$(this).tree('select',node.target);
+					$('#mm').menu('show',{
+						left: e.pageX,
+						top: e.pageY
+					});
+				}
+			">
+			</ul>
+		</div>
+	</div>
+
 	<script type="text/javascript">
 		var toolbar = [{
 			text:'新建',
@@ -39,6 +59,19 @@
 			iconCls:'icon-save',
 			handler:function(){alert('save')}
 		}];
+		
+		
+		$.ajax({
+			url : '/admin/menu/getAllMenu.do',
+			type : 'GET',
+			data : '',
+			dataType : 'json',
+			success : function(data) {
+				alert(JSON.stringify(data.resp_data))
+				$('#tree').tree("loadData", data.resp_data)
+			}
+		})
+		
 	</script>
 </body>
 </html>
