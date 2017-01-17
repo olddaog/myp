@@ -28,6 +28,7 @@ import easyFrame.model.Role;
 import easyFrame.model.User;
 import easyFrame.service.MenuManager;
 import easyFrame.service.ResponseObject;
+import easyFrame.service.RoleManager;
 import easyFrame.service.SuccessResponse;
 import easyFrame.service.UserManager;
 
@@ -40,6 +41,9 @@ public class MenuController {
 	@Autowired
 
 	UserManager userManager;
+	
+	@Autowired
+	RoleManager roleManager;
 
 	@RequestMapping(value = "/save.do")
 	@ResponseBody
@@ -88,41 +92,17 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value = "/getAllMenu.do")
 	public ResponseObject getAllMenu() {
-		//获取所有根节点
+		// 获取所有根节点
 		return new SuccessResponse(menuManager.getMenusByParentId(0l));
 	}
+	@ResponseBody
+	@RequestMapping(value = "/getMenusByRole.do")
+	public ResponseObject getMenusByRole(Long roleId) {
+	Role role = roleManager.get(roleId);
+	Set<Menu> menus = role.getMenus();
+	
+	return null;
 
-	// 解析tree
-	private List getChildrens(List<Menu> menus) {
-
-		List<Menu> arr=new ArrayList<Menu>();
-		for(Menu menu:menus){
-			//如果有孩子
-			if(menu.getChildren().size()>0){
-				arr.addAll(menu.getChildren());
-				 getChildrens(arr);
-			}
-		}
-		
-		System.out.println(JSONArray.fromObject(arr));
-		return menus;
-		
-	}
-	
-	
-	
-	public static void main(String[] args) {
-		
 	}
 
-	
-	public Integer test(){
-		
-	//	1+2+3+4+5+6
-		
-	//	1+(i+1)
-		
-		return null;
-		
-	}
 }
