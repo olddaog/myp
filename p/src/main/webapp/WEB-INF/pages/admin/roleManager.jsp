@@ -17,7 +17,7 @@
 <body style="height: 95%;">
 	<div class="easyui-layout" style="width:100%;height: 98%;">
 		<div id="p" data-options="region:'west'"  style="width:50%;height: 100%">
-		<table class="easyui-datagrid" style="width:100%;height: 100%;padding:5px;"
+		<table id="dg" class="easyui-datagrid" style="width:100%;height: 100%;padding:5px;"
 			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
 		<thead>
 			<tr>
@@ -92,6 +92,31 @@
 		    	return '';
 	    	}
 		}
+		
+		
+		$(function(){
+			$('#cc').layout();
+			$.ajax({
+				url : '/admin/menu/getMenusByRole.do?roleId=',
+				type : 'GET',
+				data : '',
+				dataType : 'json',
+				success : function(data) {
+				//	alert(JSON.stringify(data.resp_data))
+					$('#tree').tree("loadData", data.resp_data)
+				}
+			})
+		});
+		
+		function getSelected(){
+			var row = $('#dg').datagrid('getSelected');
+			if (row){
+				$.messager.alert('Info',row.name);
+			}
+		}
+		$('#dg').datagrid({
+                    on
+			}); 
 	</script>
 </body>
 </html>

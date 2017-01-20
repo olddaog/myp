@@ -100,9 +100,7 @@ public class MenuController {
 	public ResponseObject getMenusByRole(Long roleId) {
 	Role role = roleManager.get(roleId);
 	Set<Menu> menus = role.getMenus();
-	
-	return null;
-
+	return new SuccessResponse(menus);
 	}
 
 }
