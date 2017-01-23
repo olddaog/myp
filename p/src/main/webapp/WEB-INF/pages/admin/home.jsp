@@ -49,7 +49,7 @@
 	
 		<div
 			data-options="region:'north',split:true,hideCollapsedContent:false"
-			style="width: 300px; height: 100px; background-color: 289898">
+			style="width: 300px; height:50px; background-color: 289898">
 			<p>
 				可以根据自己要求修改css样式<a href="javascript:void(0)"
 					onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">点击这里打开窗口</a>

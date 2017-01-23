@@ -28,6 +28,7 @@ public class Menu extends BaseObject {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String text;
+	private	String name;
 	private HashMap target = new HashMap();
 	private String domId;
 	private String iconCls;
@@ -35,6 +36,7 @@ public class Menu extends BaseObject {
 	private HashMap attributes = new HashMap();
 	private Long parentId;
 	private String url;
+	private boolean checked;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_children")
 	private Set<Menu> children;
@@ -124,6 +126,22 @@ public class Menu extends BaseObject {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getName() {
+		return text;
+	}
+
+	public void setName(String name) {
+		this.name = this.text;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	@Override

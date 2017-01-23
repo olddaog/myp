@@ -88,7 +88,7 @@ public class MenuController {
 		return "admin/menuManager";
 	}
 
-	@SuppressWarnings("unused")
+
 	@ResponseBody
 	@RequestMapping(value = "/getAllMenu.do")
 	public ResponseObject getAllMenu() {
