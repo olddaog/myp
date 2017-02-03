@@ -36,12 +36,10 @@ import easyFrame.service.UserManager;
 @RequestMapping("/admin/menu")
 public class MenuController {
 	@Autowired
-
 	MenuManager menuManager;
 	@Autowired
-
 	UserManager userManager;
-	
+
 	@Autowired
 	RoleManager roleManager;
 
@@ -88,19 +86,48 @@ public class MenuController {
 		return "admin/menuManager";
 	}
 
-
 	@ResponseBody
 	@RequestMapping(value = "/getAllMenu.do")
 	public ResponseObject getAllMenu() {
 		// 获取所有根节点
-		return new SuccessResponse(menuManager.getMenusByParentId(0l));
+
+		List<Menu> menus = menuManager.getAll();
+
+		HashSet<Menu> menuSet = new HashSet<Menu>();
+
+		for (Menu menu : menus) {
+
+			menuSet.add(menu);
+		}
+		// test(menuSet);
+		HashSet<Menu> aaaa = test(menuSet);
+
+		for (Menu menu : menus) {
+			if ((0l + "").equals(menu.getParentId() + "")) {
+				aaaa.add(menu);
+			}
+		}
+		return new SuccessResponse(aaaa);
+
 	}
+
+	public HashSet<Menu> test(HashSet<Menu> set) {
+		HashSet<Menu> set2 = new HashSet<Menu>();
+		// 遍历所有menus，将所有menu放入list里面
+		for (Menu menu : set) {
+			set2.addAll(menu.getChildren());
+			// set2.add(menu);
+			test(set2);
+		}
+		return set2;
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/getMenusByRole.do")
 	public ResponseObject getMenusByRole(Long roleId) {
-	Role role = roleManager.get(roleId);
-	Set<Menu> menus = role.getMenus();
-	return new SuccessResponse(menus);
+		Role role = roleManager.get(roleId);
+		Set<Menu> menus = role.getMenus();
+		return new SuccessResponse(menus);
 	}
 
 }
