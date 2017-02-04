@@ -88,7 +88,7 @@ public class MenuController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getAllMenu.do")
-	public ResponseObject getAllMenu() {
+	public ResponseObject getAllMenu(Long roleId) {
 		// 获取所有根节点
 
 		List<Menu> menus = menuManager.getAll();
@@ -107,7 +107,37 @@ public class MenuController {
 				aaaa.add(menu);
 			}
 		}
-		return new SuccessResponse(aaaa);
+		Role role = roleManager.get(roleId);
+		for (Menu mm : role.getMenus()) {
+			for (Menu menu : aaaa) {
+				if ((mm.getId() + "").equals(menu.getId() + "")) {
+					menu.setChecked(true);
+				}
+			}
+
+		}
+		HashMap<Long, Menu> map = new HashMap<Long, Menu>();
+		// 把aaaa中menu生成一个tree
+
+		for (Menu menu : aaaa) {
+			map.put(menu.getId(), menu);
+		}
+		
+		for (Menu menu : aaaa) {
+		       if(!(0l+"").equals(menu.getParentId()+"")){
+	            	map.get(menu.getParentId()).addChildren(menu);
+		       }
+		}
+		
+		HashSet<Menu> bbbb = new HashSet<Menu>();
+		for (Menu menu : aaaa) {
+		       if((0l+"").equals(menu.getParentId()+"")){
+	            	bbbb.add(menu);
+		       }
+		}
+		
+
+		return new SuccessResponse(bbbb);
 
 	}
 

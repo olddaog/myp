@@ -36,13 +36,12 @@
 				data-options="
 				iconCls: 'icon-ok',
 				rownumbers: true,
-				animate: true,
+			
 				checkbox:true,
 				lines:true,
 				collapsible: true,
 				fitColumns: true,
-				url: '/treegrid_data2.json',
-				method: 'get',
+				
 				idField: 'id',
 				treeField: 'name',
 				toolbar:toolbar2
@@ -82,15 +81,29 @@
 			text : '修改权限',
 			iconCls : 'icon-edit',
 			handler : function() {
+				
+				var selected = $('#dg').datagrid("getSelected");
+				
 				//alert('edit')
 				$.ajax({
-					url : '/admin/menu/getAllMenu.do',
+					url : '/admin/menu/getAllMenu.do?roleId='+selected.id,
 					type : 'GET',
 					data : '',
 					dataType : 'json',
 					success : function(data) {
 						//	alert(JSON.stringify(data.resp_data))
-						$('#tg').treegrid("loadData", data.resp_data)
+						//unselectAll
+						
+						$('#tg').treegrid("loadData", data.resp_data);
+						alert(1);
+					     var selectons=	$('#tg').treegrid("getSelections");
+						alert(selectons.length);
+					     for(i=0;i<selectons.length;i++){
+					    	 $('#tg').treegrid("unselect", selectons[i].id);
+					     }
+					     
+					     
+						alert(2);
 					}
 				})
 				
