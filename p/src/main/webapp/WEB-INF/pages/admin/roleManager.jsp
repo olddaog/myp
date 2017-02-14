@@ -17,7 +17,7 @@
 <body style="height: 95%;">
 	<div class="easyui-layout" style="width: 100%; height: 98%;">
 		<div id="p" data-options="region:'west'"
-			style="width: 50%; height: 100%">
+			style="width: 29%; height: 100%">
 			<table id="dg" class="easyui-datagrid"
 				style="width: 100%; height: 95%; padding: 5px;"
 				data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
@@ -31,12 +31,12 @@
 			</table>
 		</div>
 		<div data-options="region:'center'">
-			<table id="tg" class="easyui-treegrid" 
+			<table id="tg" class="easyui-treegrid"
 				style="width: 100%; height: 95%"
 				data-options="
 				iconCls: 'icon-ok',
-				rownumbers: true,
-			
+				rownumbers: false,
+		     	cache:false,
 				checkbox:true,
 				lines:true,
 				collapsible: true,
@@ -48,9 +48,7 @@
 			">
 				<thead>
 					<tr>
-						<th data-options="field:'name',width:180,editor:'text'">
-							权限菜单
-						</th>
+						<th data-options="field:'name',width:80,editor:'text'">权限名字</th>
 					</tr>
 				</thead>
 			</table>
@@ -102,7 +100,8 @@
 					    	 $('#tg').treegrid("unselect", selectons[i].id);
 					     }
 					     
-					     
+					     $('#tg').treegrid("unselectAll");
+					   
 						alert(2);
 					}
 				})
@@ -112,7 +111,8 @@
 			text : '保存',
 			iconCls : 'icon-save',
 			handler : function() {
-				alert('save')
+				alert('save');
+				assignMenu();
 			}
 		} ];
 		
@@ -157,6 +157,7 @@
 		$('#dg').datagrid({
 			onSelect : function() {
 				//alert(2);
+				
 				var selected = $('#dg').datagrid("getSelected");
 				//title
 				
@@ -173,6 +174,17 @@
 				})
 			}
 		});
+		
+		
+		function assignMenu(){
+			
+			alert(	$('#tg').treegrid("getSelections"))
+			
+		}
+		
+		
+		
+		
 	</script>
 </body>
 </html>

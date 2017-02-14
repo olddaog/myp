@@ -122,20 +122,19 @@ public class MenuController {
 		for (Menu menu : aaaa) {
 			map.put(menu.getId(), menu);
 		}
-		
+
 		for (Menu menu : aaaa) {
-		       if(!(0l+"").equals(menu.getParentId()+"")){
-	            	map.get(menu.getParentId()).addChildren(menu);
-		       }
+			if (!(0l + "").equals(menu.getParentId() + "")) {
+				map.get(menu.getParentId()).addChildren(menu);
+			}
 		}
-		
+
 		HashSet<Menu> bbbb = new HashSet<Menu>();
 		for (Menu menu : aaaa) {
-		       if((0l+"").equals(menu.getParentId()+"")){
-	            	bbbb.add(menu);
-		       }
+			if ((0l + "").equals(menu.getParentId() + "")) {
+				bbbb.add(menu);
+			}
 		}
-		
 
 		return new SuccessResponse(bbbb);
 
@@ -158,6 +157,20 @@ public class MenuController {
 		Role role = roleManager.get(roleId);
 		Set<Menu> menus = role.getMenus();
 		return new SuccessResponse(menus);
+	}
+
+	// 给角色分配菜单
+	@ResponseBody
+	@RequestMapping(value = "/assignMenuByRole.do")
+	public ResponseObject assignMenuByRole(@RequestBody HashSet<Menu> menus,
+			Long roleId) {
+
+		Role role = roleManager.get(roleId);
+         role.setMenus(menus);
+         roleManager.save(role);
+
+		return new SuccessResponse();
+
 	}
 
 }
