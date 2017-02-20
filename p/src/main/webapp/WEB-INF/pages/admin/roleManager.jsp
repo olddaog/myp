@@ -35,20 +35,27 @@
 				style="width: 100%; height: 95%"
 				data-options="
 				iconCls: 'icon-ok',
-				rownumbers: false,
+				rownumbers: true,
 		     	cache:false,
-				checkbox:true,
+		
 				lines:true,
 				collapsible: true,
 				fitColumns: true,
-				
+				singleSelect:false,
 				idField: 'id',
+				treeField: 'checked',
 				treeField: 'name',
 				toolbar:toolbar2
 			">
 				<thead>
 					<tr>
-						<th data-options="field:'name',width:80,editor:'text'">权限名字</th>
+						<th
+							data-options="field:'name',width:80,editor:'text'" >权限名字</th>
+							<th
+							data-options="field:'id',width:80,editor:'text'" >权id</th>
+							
+							<th
+							data-options="field:'added',width:10,editor:'text',formatter:formatProgress"" >分配</th>
 					</tr>
 				</thead>
 			</table>
@@ -56,6 +63,8 @@
 	</div>
 
 	<script type="text/javascript">
+		var bflag = 0;
+		var menus=null;
 		var toolbar = [ {
 			text : '新建',
 			iconCls : 'icon-add',
@@ -79,33 +88,49 @@
 			text : '修改权限',
 			iconCls : 'icon-edit',
 			handler : function() {
-				
+
 				var selected = $('#dg').datagrid("getSelected");
-				
+
 				//alert('edit')
-				$.ajax({
-					url : '/admin/menu/getAllMenu.do?roleId='+selected.id,
-					type : 'GET',
-					data : '',
-					dataType : 'json',
-					success : function(data) {
-						//	alert(JSON.stringify(data.resp_data))
-						//unselectAll
-						
-						$('#tg').treegrid("loadData", data.resp_data);
-						alert(1);
-					     var selectons=	$('#tg').treegrid("getSelections");
-						alert(selectons.length);
-					     for(i=0;i<selectons.length;i++){
-					    	 $('#tg').treegrid("unselect", selectons[i].id);
-					     }
-					     
-					     $('#tg').treegrid("unselectAll");
-					   
-						alert(2);
-					}
-				})
 				
+						$.ajax({
+							url : '/admin/menu/getmenuSet.do',
+							type : 'POST',
+							data : "",
+							dataType : 'json',
+							success : function(data) {
+							menus=	data.resp_data;
+							alert(JSON.stringify(menus));//6030.99
+								$.ajax({
+									url : '/admin/menu/getAllMenu.do?roleId=' + selected.id,
+									type : 'GET',
+									data : '',
+									dataType : 'json',
+									success : function(data) {
+										//	alert(JSON.stringify(data.resp_data))
+										//unselectAll
+										bflag = 1;
+										$('#tg').treegrid("loadData", data.resp_data);
+										alert(1);
+										var selectons = $('#tg').treegrid("getSelections");
+										alert(selectons.length);
+										for (i = 0; i < selectons.length; i++) {
+											$('#tg').treegrid("unselect", selectons[i].id);
+										}
+
+										$('#tg').treegrid("unselectAll");
+
+										alert(2);
+									}
+								})
+								
+							}
+						})
+				
+				
+				
+				
+
 			}
 		}, '-', {
 			text : '保存',
@@ -115,10 +140,7 @@
 				assignMenu();
 			}
 		} ];
-		
-		
-		
-		
+
 		/* $.ajax({
 			url : '/admin/menu/getAllMenu.do',
 			type : 'GET',
@@ -130,19 +152,6 @@
 			}
 		}) */
 
-		function formatProgress(value) {
-			if (value) {
-				var s = '<div style="width:100%;border:1px solid #ccc">'
-						+ '<div style="width:' + value
-						+ '%;background:#cc0000;color:#fff">' + value + '%'
-						+ '</div>'
-				'</div>';
-				return s;
-			} else {
-				return '';
-			}
-		}
-
 		$(function() {
 			$('#cc').layout();
 		});
@@ -153,38 +162,72 @@
 				$.messager.alert('Info', row.name);
 			}
 		}
-		
-		$('#dg').datagrid({
-			onSelect : function() {
-				//alert(2);
-				
-				var selected = $('#dg').datagrid("getSelected");
-				//title
-				
-				//alert(selected.id)
-				$.ajax({
-					url : '/admin/menu/getMenusByRole.do?roleId='+selected.id,
-					type : 'GET',
-					data : '',
-					dataType : 'json',
-					success : function(data) {
-						//	alert(JSON.stringify(data.resp_data))
-						$('#tg').treegrid("loadData", data.resp_data)
+
+		$('#dg').datagrid(
+				{
+					onSelect : function() {
+						//alert(2);
+
+						var selected = $('#dg').datagrid("getSelected");
+						//title
+
+						//alert(selected.id)
+						$.ajax({
+							url : '/admin/menu/getMenusByRole.do?roleId='
+									+ selected.id,
+							type : 'GET',
+							data : '',
+							dataType : 'json',
+							success : function(data) {
+								//	alert(JSON.stringify(data.resp_data))
+								bflag = 0;
+								$('#tg').treegrid("loadData", data.resp_data);
+
+							}
+						})
 					}
-				})
-			}
-		});
-		
-		
-		function assignMenu(){
-			
-			alert(	$('#tg').treegrid("getSelections"))
-			
+				});
+
+		function assignMenu() {
+
+		//	alert()
+			alert(JSON.stringify($('#tg').treegrid("getSelections")))
+				var selected = $('#dg').datagrid("getSelected");
+			$.ajax({
+							url : '/admin/menu/assignMenuByRole.do?roleId='
+									+ selected.id+"&menus="+JSON.stringify($('#tg').treegrid("getSelections")),
+							type : 'POST',
+							data : "",
+							dataType : 'json',
+							success : function(data) {
+								//	alert(JSON.stringify(data.resp_data))
+								/* bflag = 0;
+								$('#tg').treegrid("loadData", data.resp_data);
+ */
+							}
+						})
+
 		}
+		function formatProgress(value) {
+
+		var	flag=new Boolean(value)
+			if (bflag == 1&&value==1) {
+				var s = '<div style="width:100%;border:0px solid #ccc">'
+					+ '<div style="width: + 100%'
+					+ '%;background:#cf2020;color:#fff">' + '&nbsp' + '</div>'
+					'</div>';
+			return s;
+			
+			}
+		if (bflag != 1) {
+			return "是";
+		}
+			
 		
+
 		
-		
-		
+
+		}
 	</script>
 </body>
 </html>

@@ -138,6 +138,7 @@
 
 		$("#tree").click(
 				function(e) {
+					alert($("#tree").tree("getSelected").url);
 					index++;
 					$('#tt').tabs(
 							'add',

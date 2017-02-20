@@ -36,7 +36,9 @@ public class Menu extends BaseObject {
 	private HashMap attributes = new HashMap();
 	private Long parentId;
 	private String url;
-	private boolean checked;
+	private int checked;
+	private String added;
+	private Long _parentId;
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_children")
 	private Set<Menu> children;
@@ -136,14 +138,7 @@ public class Menu extends BaseObject {
 		this.name = this.text;
 	}
 
-	public boolean isChecked() {
-		return checked;
-	}
-
-	public void setChecked(boolean checked) {
-		this.checked = checked;
-	}
-
+	
 	@Override
 	public String toString() {
 		return getClass().getName() + "@" + Integer.toHexString(hashCode());
@@ -178,5 +173,31 @@ public class Menu extends BaseObject {
 		}
 		return 0;
 	}
+
+	public Long get_parentId() {
+		return _parentId;
+	}
+
+	public void set_parentId(Long _parentId) {
+		this._parentId = _parentId;
+	}
+
+	public int getChecked() {
+		return checked;
+	}
+
+	public void setChecked(int checked) {
+		this.checked = checked;
+	}
+
+	public String getAdded() {
+		return added;
+	}
+
+	public void setAdded(String added) {
+		this.added = added;
+	}
+	
+	
 
 }
