@@ -51,8 +51,6 @@ public class MenuController {
 		Menu parent = menuManager.get(menu.getParentId());
 		parent.getChildren().add(menu);
 		Menu res = menuManager.save(parent);
-		
-		System.out.println(JSONObject.fromObject(res));
 		return new SuccessResponse(res);
 	}
 
