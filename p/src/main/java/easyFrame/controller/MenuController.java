@@ -197,7 +197,6 @@ public class MenuController {
 				// 如果是根节点菜单直接放入fullpathset
 				fullPathSet.add(menu);
 			}
-
 		}
 		return new SuccessResponse(fullPathSet);
 	}
