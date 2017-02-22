@@ -59,8 +59,6 @@ public class MenuController {
 	public ResponseObject getMenuByLoginerRoles(HttpServletRequest request) {
 		String username = request.getRemoteUser();
 		User user = userManager.getByUserName(username);
-		List<Menu> aa = menuManager.getAll();
-		ArrayList list = new ArrayList();
 		/*
 		 * 一个用户可以有多个角色
 		 */
@@ -70,7 +68,7 @@ public class MenuController {
 		 * 存放menu的容器，因为menu已经重写了hashcode和equals方法，所以set 容器可以对menu去重复
 		 */
 		HashSet<Menu> menus = new HashSet();
-		// 获得所有角色，然后把所有角色对应的菜单存放在一起
+		// 获得所有角色，然后把所有角色对应的菜单存放在一起,并且去重复
 		while (itera.hasNext()) {
 			// 每个角色都有对应的menu
 			Set<Menu> power = itera.next().getMenus();
@@ -88,46 +86,59 @@ public class MenuController {
 			 * 如果不是根节点,根节点的pareantId=0
 			 */
 			if (!(menu.getParentId() + "").equals(0 + "")) {
+				// 生成树结构
 				Menu p = test2(menu);
 				fullSet.add(p);
+			} else {
+				fullSet.add(menu);
 			}
+
 		}
 
-		return new SuccessResponse(menus);
+		return new SuccessResponse(fullSet);
 	}
 
 	@RequestMapping(value = "/showMenuManager.do")
 	public String showMenuManager() {
+
 		return "admin/menuManager";
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/getAllMenu.do")
 	public ResponseObject getAllMenu(Long roleId) {
-		// 获取所有节点
-		List<Menu> menuList = menuManager.getAll();
-		//获得角色根据角色Id
-		Role role = roleManager.get(roleId);
-	    //遍历所有menu，如果有menu和角色get到的menu一样设为1
-		for (Menu mm : role.getMenus()) {
-			for (Menu menu : menuList) {
-				if ((menu.getId() + "").equals(mm.getId() + "")) {
-					menu.setAdded(1+"");
+		if (roleId != null) {
+			// 如果获取该角色获取所有节点
+			List<Menu> menuList = menuManager.getAll();
+			// 获得角色根据角色Id
+			Role role = roleManager.get(roleId);
+			// 遍历所有menu，如果有menu和角色get到的menu一样设为1
+			for (Menu mm : role.getMenus()) {
+				for (Menu menu : menuList) {
+					if ((menu.getId() + "").equals(mm.getId() + "")) {
+						menu.setAdded(1 + "");
+						menu.setChecked(true);
+					}
 				}
 			}
+			// HashMap<Long, Menu> map = new HashMap<Long, Menu>();
+			// 把menuList中menu生成一个tree
+			HashSet<Menu> resset = new HashSet<Menu>();
+			for (Menu mm : menuList) {
+				Menu res = test3(mm);
+				// map.put(res.getId(), res);
+				resset.add(res);
+			}
+			// map.values();
+
+			System.out.println(JSONArray.fromObject(resset));
+			return new SuccessResponse(resset);
+		} else {
+			// 如果是全部的节点
+			List<Menu> ms = menuManager.getMenusByParentId(0l);
+			return new SuccessResponse(new LinkedHashSet<Menu>(ms));
+
 		}
-		//HashMap<Long, Menu> map = new HashMap<Long, Menu>();
-		// 把menuList中menu生成一个tree
-		HashSet<Menu> resset = new HashSet<Menu>();
-		for(Menu mm:menuList){
-			Menu res = test3(mm);
-			//map.put(res.getId(), res);
-			resset.add(res);
-		}
-	//	map.values();
-		
-		System.out.println(JSONArray.fromObject(resset));
-		return new SuccessResponse(resset);
 
 	}
 
@@ -139,7 +150,6 @@ public class MenuController {
 		// 遍历所有menus，将所有menu放入list里面
 		for (Menu menu : set) {
 			set2.addAll(menu.getChildren());
-			// set2.add(menu);
 			test(set2);
 		}
 		return set2;
@@ -149,13 +159,13 @@ public class MenuController {
 		Menu res = menu;
 		if (!(menu.getParentId() + "").equals(0 + "")) {
 			res = menuManager.get(menu.getParentId());
-			//res.getChildren().clear();
+			// res.getChildren().clear();
 			res.addChildren(menu);
 			res = test2(res);
 		}
 		return res;
 	}
-	
+
 	public Menu test3(Menu menu) {
 		Menu res = menu;
 		if (!(menu.getParentId() + "").equals(0 + "")) {
@@ -165,27 +175,26 @@ public class MenuController {
 		}
 		return res;
 	}
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/getMenusByRole.do")
 	public ResponseObject getMenusByRole(Long roleId) {
-		//根据roleId获得角色
+		// 根据roleId获得角色
 		Role role = roleManager.get(roleId);
-		//获得该角色对应的菜单
+		// 获得该角色对应的菜单
 		Set<Menu> menus = role.getMenus();
-		//创建一个容器存放该角色对应的树形结构菜单
+		// 创建一个容器存放该角色对应的树形结构菜单
 		HashSet<Menu> fullPathSet = new HashSet<Menu>();
-		//遍历角色对应的菜单
+		// 遍历角色对应的菜单
 		for (Menu menu : menus) {
-		
+
 			if (!(menu.getParentId() + "").equals(0 + "")) {
-		    //如果不是根节点，获得该节点的父节点，并且调用该节点的父节点的addchild方法把该节点传入
-			//然后返回父节点把父节点存入fullset
+				// 如果不是根节点，获得该节点的父节点，并且调用该节点的父节点的addchild方法把该节点传入
+				// 然后返回父节点把父节点存入fullset
 				Menu p = test2(menu);
 				fullPathSet.add(p);
 			} else {
-			//如果是根节点菜单直接放入fullpathset	
+				// 如果是根节点菜单直接放入fullpathset
 				fullPathSet.add(menu);
 			}
 
@@ -196,25 +205,28 @@ public class MenuController {
 	// 给角色分配菜单
 	@ResponseBody
 	@RequestMapping(value = "/assignMenuByRole.do")
-	public ResponseObject assignMenuByRole(@RequestBody HashSet<Menu> menus,
+	public ResponseObject assignMenuByRole(@RequestBody HashSet<Long> menuIds,
 			Long roleId) {
 
 		Role role = roleManager.get(roleId);
-		role.setMenus(menus);
+		Set<Menu> roleMenus = role.getMenus();
+		roleMenus.clear();
+		for (Long id : menuIds) {
+			Menu menu = menuManager.get(id);
+			roleMenus.add(menu);
+		}
+		System.out.println(JSONArray.fromObject(roleMenus));
+		role.setMenus(roleMenus);
 		roleManager.save(role);
-
 		return new SuccessResponse();
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/getmenuSet.do")
-	public ResponseObject getmenuSet() {
+	public ResponseObject getmenuSet(Long roleId) {
 
-		HashSet<Menu> res = test(new LinkedHashSet<Menu>(menuManager.getAll()));
-
-		return new SuccessResponse(res);
-
-		// test2
+		Role role = roleManager.get(roleId);
+		return new SuccessResponse(new LinkedHashSet<Menu>(role.getMenus()));
 
 	}
 

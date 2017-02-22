@@ -37,25 +37,20 @@
 				iconCls: 'icon-ok',
 				rownumbers: true,
 		     	cache:false,
-		
 				lines:true,
 				collapsible: true,
 				fitColumns: true,
-				singleSelect:false,
+				singleSelect:true,
 				idField: 'id',
 				treeField: 'checked',
 				treeField: 'name',
 				toolbar:toolbar2
+				
 			">
 				<thead>
 					<tr>
-						<th
-							data-options="field:'name',width:80,editor:'text'" >权限名字</th>
-							<th
-							data-options="field:'id',width:80,editor:'text'" >权id</th>
-							
-							<th
-							data-options="field:'added',width:10,editor:'text',formatter:formatProgress"" >分配</th>
+						<th data-options="field:'name',width:80,editor:'text'">权限名字</th>
+						<th data-options="field:'id',width:80,editor:'text',formatter:formatProgress">是否已分配</th>
 					</tr>
 				</thead>
 			</table>
@@ -64,7 +59,8 @@
 
 	<script type="text/javascript">
 		var bflag = 0;
-		var menus=null;
+		var menus = new Array();
+
 		var toolbar = [ {
 			text : '新建',
 			iconCls : 'icon-add',
@@ -84,25 +80,28 @@
 				alert('save')
 			}
 		} ];
-		var toolbar2 = [ {
-			text : '修改权限',
-			iconCls : 'icon-edit',
-			handler : function() {
+		var toolbar2 = [
+				{
+					text : '修改权限',
+					iconCls : 'icon-edit',
+					handler : function() {
 
-				var selected = $('#dg').datagrid("getSelected");
+						var selected = $('#dg').datagrid("getSelected");
 
-				//alert('edit')
-				
+						//alert('edit')
+
 						$.ajax({
-							url : '/admin/menu/getmenuSet.do',
+							url : '/admin/menu/getmenuSet.do?roleId='
+								+ selected.id,
 							type : 'POST',
 							data : "",
 							dataType : 'json',
-							success : function(data) {
-							menus=	data.resp_data;
-							alert(JSON.stringify(menus));//6030.99
+							success : function(data2) {
+								menus = data2.resp_data;
+								
 								$.ajax({
-									url : '/admin/menu/getAllMenu.do?roleId=' + selected.id,
+									url : '/admin/menu/getAllMenu.do?roleId='
+											+ selected.id,
 									type : 'GET',
 									data : '',
 									dataType : 'json',
@@ -110,36 +109,33 @@
 										//	alert(JSON.stringify(data.resp_data))
 										//unselectAll
 										bflag = 1;
-										$('#tg').treegrid("loadData", data.resp_data);
-										alert(1);
+										$('#tg').treegrid("loadData",
+												data.resp_data);
 										var selectons = $('#tg').treegrid("getSelections");
-										alert(selectons.length);
+										//alert(selectons.length);
 										for (i = 0; i < selectons.length; i++) {
-											$('#tg').treegrid("unselect", selectons[i].id);
+											$('#tg').treegrid("unselect",
+													selectons[i].id);
 										}
 
 										$('#tg').treegrid("unselectAll");
 
-										alert(2);
 									}
 								})
-								
+
 							}
 						})
-				
-				
-				
-				
 
-			}
-		}, '-', {
-			text : '保存',
-			iconCls : 'icon-save',
-			handler : function() {
-				alert('save');
-				assignMenu();
-			}
-		} ];
+					}
+				}, '-', {
+					text : '保存',
+					iconCls : 'icon-save',
+					handler : function() {
+						//alert('save');
+						//assignMenu();
+						jqchk();
+					}
+				} ];
 
 		/* $.ajax({
 			url : '/admin/menu/getAllMenu.do',
@@ -188,46 +184,80 @@
 					}
 				});
 
-		function assignMenu() {
+		/* function assignMenu() {
 
-		//	alert()
+			//	alert()
 			alert(JSON.stringify($('#tg').treegrid("getSelections")))
-				var selected = $('#dg').datagrid("getSelected");
-			$.ajax({
-							url : '/admin/menu/assignMenuByRole.do?roleId='
-									+ selected.id+"&menus="+JSON.stringify($('#tg').treegrid("getSelections")),
-							type : 'POST',
-							data : "",
-							dataType : 'json',
-							success : function(data) {
-								//	alert(JSON.stringify(data.resp_data))
-								/* bflag = 0;
-								$('#tg').treegrid("loadData", data.resp_data);
- */
-							}
-						})
+			var selected = $('#dg').datagrid("getSelected");
+			
 
-		}
+		} */
+
 		function formatProgress(value) {
-
-		var	flag=new Boolean(value)
-			if (bflag == 1&&value==1) {
-				var s = '<div style="width:100%;border:0px solid #ccc">'
-					+ '<div style="width: + 100%'
-					+ '%;background:#cf2020;color:#fff">' + '&nbsp' + '</div>'
+			var	cflag=0;
+			//如果是修改权限    
+			if (bflag == 1) {
+				//如果该菜单分配给当前角色
+				for(i=0;i<menus.length;i++){
+					if(menus[i].id==value){
+						cflag=1;
+						break;
+					}
+				
+				}				
+				if (cflag == 1) {
+				//	alert(JSON.stringify(menus));//6030.99
+					var s = '<div style="width:100%;border:0px solid ">'
+							+ '<div style="width: + 100%'
+							+ '">'
+							+ '<input name="fff" type="checkbox" value="'+value+'"  checked="checked"   />'
+							+ '</div>'
 					'</div>';
-			return s;
-			
+					return s;
+				} else {
+					var f = '<div style="width:100%;border:0px solid green">'
+							+ '<div style="width: + 100%'
+							+ ';">'
+							+ '<input name="fff"  type="checkbox" value="'+value+'"   />'
+							+ '</div>'
+					'</div>';
+					return f;
+				}
+
 			}
-		if (bflag != 1) {
-			return "是";
-		}
 			
-		
-
-		
+			
+			
+			if (bflag != 1) {
+				return "是";
+			}
 
 		}
+
+		function jqchk(){  //jquery获取复选框值    
+			  var chk_value =[];  
+				var selected = $('#dg').datagrid("getSelected");
+			  $('input[name="fff"]:checked').each(function(){    
+			   chk_value.push($(this).val());    
+			  });    
+		//	  alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);    
+                     $.ajax({
+				url : '/admin/menu/assignMenuByRole.do?roleId=' + selected.id,
+				type : 'POST',
+				data : JSON.stringify(chk_value),
+				contentType : "application/json;charset=utf-8",
+				dataType : 'json',
+				success : function(data) {
+				
+					
+				}
+			})
+		
+		
+		
+		}   
+		
+		
 	</script>
 </body>
 </html>

@@ -36,7 +36,7 @@ public class Menu extends BaseObject {
 	private HashMap attributes = new HashMap();
 	private Long parentId;
 	private String url;
-	private int checked;
+	private boolean checked;
 	private String added;
 	private Long _parentId;
 	@OneToMany(fetch = FetchType.EAGER)
@@ -149,13 +149,7 @@ public class Menu extends BaseObject {
 		if (!(o instanceof Menu)) {
 			return false;
 		}
-		
-		
-		
-		
 		Menu m = (Menu) o;
-		System.out.println(this.text.equals(m.getText()));
-		// System.out.println(aa.getText()+"=================");
 		if ((m.getText() + "").equals(this.getText() + "")) {
 			if ((this.getId() + "").equals(m.getId() + "")) {
 				return true;
@@ -182,11 +176,12 @@ public class Menu extends BaseObject {
 		this._parentId = _parentId;
 	}
 
-	public int getChecked() {
+	
+	public boolean isChecked() {
 		return checked;
 	}
 
-	public void setChecked(int checked) {
+	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
 

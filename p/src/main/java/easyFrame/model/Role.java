@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -33,8 +36,9 @@ public class Role extends BaseObject implements GrantedAuthority {
 		this.name = name;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "role_menu")	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "role_menu")
+	@Cascade({CascadeType.ALL,CascadeType.DELETE_ORPHAN})
 	private Set<Menu> menus;
 	public Set<Menu> getMenus() {
 		return menus;
