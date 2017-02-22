@@ -137,9 +137,7 @@ public class MenuController {
 			// 如果是全部的节点
 			List<Menu> ms = menuManager.getMenusByParentId(0l);
 			return new SuccessResponse(new LinkedHashSet<Menu>(ms));
-
 		}
-
 	}
 
 	/*
