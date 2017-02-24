@@ -36,9 +36,7 @@ public class MenuManagerImp extends GenericManagerImpl<Menu, Long> implements Me
 		this.menuDao =menuDao;
 	}
 	
-	
-	
-	
+
 	public boolean makeEasyUItreeByRoleId(Long id) {
 		return false;
 	}

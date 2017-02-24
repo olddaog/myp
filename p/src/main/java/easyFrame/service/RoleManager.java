@@ -1,7 +1,9 @@
 package easyFrame.service;
 
-import easyFrame.model.Role;
+import org.springframework.transaction.annotation.Transactional;
 
+import easyFrame.model.Role;
+@Transactional
 public interface RoleManager extends GenericManager<Role, Long> {
 
 }

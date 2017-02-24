@@ -45,11 +45,14 @@ public class MenuController {
 
 	@RequestMapping(value = "/save.do")
 	@ResponseBody
-	public ResponseObject saveMenu(@RequestBody Menu menu) {
+	public ResponseObject saveNewMenu(@RequestBody Menu menu) {
+		
 		menu = menuManager.save(menu);
 		Menu parent = menuManager.get(menu.getParentId());
 		parent.getChildren().add(menu);
 		Menu res = menuManager.save(parent);
+		
+		System.out.println(JSONObject.fromObject(res));
 		return new SuccessResponse(res);
 	}
 
@@ -170,7 +173,7 @@ public class MenuController {
 		if (!(menu.getParentId() + "").equals(0 + "")) {
 			res = menuManager.get(menu.getParentId());
 			res.addChildren(menu);
-			res = test2(res);
+			res = test3(res);
 		}
 		return res;
 	}
@@ -212,10 +215,10 @@ public class MenuController {
 		roleMenus.clear();
 		for (Long id : menuIds) {
 			Menu menu = menuManager.get(id);
-			roleMenus.add(menu);
+			role.addMenu(menu);
 		}
-		System.out.println(JSONArray.fromObject(roleMenus));
-		role.setMenus(roleMenus);
+		//System.out.println(JSONArray.fromObject(roleMenus));
+		//role.setMenus(roleMenus);
 		roleManager.save(role);
 		return new SuccessResponse();
 	}

@@ -66,6 +66,12 @@ public class Role extends BaseObject implements GrantedAuthority {
 		// TODO Auto-generated method stub
 		return this.getName();
 	}
-	
+	public void addMenu(Menu menu) {
+
+		Set<Menu> set = this.getMenus();
+		set.add(menu);
+		this.setMenus(set);
+	}
+
 	
 }

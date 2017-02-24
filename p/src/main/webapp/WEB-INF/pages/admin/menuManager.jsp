@@ -109,7 +109,6 @@
 		var selected = $("#tree").tree("getSelected");
 		//alert(dom.id)
 		var child = new Object();
-
 		child['parentId'] = selected.id;
 		child['text'] = document.getElementById("tss").value;
 		menujson = child;

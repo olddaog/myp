@@ -5,18 +5,23 @@
 
 	<distributable />
 
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
+    <filter>  
+        <filter-name>encodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+        <init-param>  
+            <param-name>encoding</param-name>  
+            <param-value>UTF-8</param-value>  
+        </init-param>  
+        <init-param>  
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+        </init-param>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>encodingFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>
+	
 
 
 	<listener>
@@ -32,9 +37,9 @@
 
 		<!-- <param-value>classpath:applicationContext*.xml</param-value> -->
 	</context-param>
-	
-	
-	
+
+
+
 	<!-- SpringSecurity 核心过滤器配置 -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -58,10 +63,6 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
-<!-- 
-	<welcome-file-list>
-		<welcome-file>login/index.html</welcome-file>
-	</welcome-file-list>
- -->
+	<!-- <welcome-file-list> <welcome-file>login/index.html</welcome-file> </welcome-file-list> -->
 
 </web-app>
