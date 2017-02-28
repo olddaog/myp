@@ -23,12 +23,11 @@ public class OrgController {
 	@Autowired
 	OrgManager orgManager;
 
-	
 	@RequestMapping("orgManager.do")
 	public ModelAndView orgManager(Long parentId) {
 		return new ModelAndView("admin/orgManager");
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("list.do")
 	public ResponseObject list(Long parentId) {
@@ -36,8 +35,26 @@ public class OrgController {
 			List<Org> orgs = orgManager.getOrgsByParentId(parentId);
 			return new SuccessResponse(orgs);
 		} catch (Exception e) {
-			return	new FailResponse("查询出错");
+			return new FailResponse("查询出错");
 		}
+
+	}
+
+	@ResponseBody
+	@RequestMapping("save.do")
+	public ResponseObject save(@RequestBody Org org) {
+		try {
+			//Org neworg = orgManager.save(org);
+			Org parentOrg = orgManager.get(1l);
+			//parentOrg.getChildren().add(neworg);
+			parentOrg.setName("***");
+			orgManager.save(parentOrg);
+			return new SuccessResponse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new FailResponse();
+		}
+
 
 	}
 

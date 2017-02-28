@@ -31,12 +31,16 @@ value="org.springframework.web.servlet.view.JstlView" />
 <property name="suffix" value=".jsp" /> 
 
 </bean> 
+<tx:annotation-driven transaction-manager="txManager"/>
+	
 
-    <context:component-scan base-package="easyFrame" >   
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />    
-    </context:component-scan>  
+<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+  <property name="sessionFactory" ref="sessionFactory" />
+</bean>
+   <context:component-scan base-package="easyFrame" >      
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />    
+</context:component-scan>  
 
-<tx:annotation-driven transaction-manager="txManager"/> 
-<!-- Add additional controller beans here --> 
+ 
+
 </beans> 

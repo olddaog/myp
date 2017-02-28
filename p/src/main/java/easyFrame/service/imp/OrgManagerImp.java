@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import easyFrame.dao.OrgDao;
 import easyFrame.model.Org;
 import easyFrame.service.OrgManager;
 @Service("orgManager")
+@Transactional
 public class OrgManagerImp extends GenericManagerImpl<Org, Long> implements OrgManager{
 	
 	OrgDao orgDao;

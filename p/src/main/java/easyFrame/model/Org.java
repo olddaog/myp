@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Parent;
 
 @Entity
@@ -23,7 +24,7 @@ public class Org extends BaseObject {
 	private String name;
 	private String text;
 	private Long parentId;
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(targetEntity=Org.class) @Cascade(org.hibernate.annotations.CascadeType.ALL) 
 	@JoinTable(name = "org_children")
 	private Set<Org> children;
 

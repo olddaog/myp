@@ -11,61 +11,78 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
-@Table(name="t_role")
+@Table(name = "t_role")
 public class Role extends BaseObject implements GrantedAuthority {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	private Set<Menu> menus;
+
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "role_menu")
-	@Cascade({CascadeType.ALL,CascadeType.DELETE_ORPHAN})
-	private Set<Menu> menus;
+	/*@Cascade({ CascadeType.ALL, CascadeType.DELETE_ORPHAN })*/
 	public Set<Menu> getMenus() {
 		return menus;
 	}
+
 	public void setMenus(Set<Menu> menus) {
 		this.menus = menus;
 	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public boolean equals(Object o) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	//---------------------------------
+
+	// ---------------------------------
+	@Transient
 	public String getAuthority() {
 		// TODO Auto-generated method stub
 		return this.getName();
 	}
+	
+	
+	
+
 	public void addMenu(Menu menu) {
 
 		Set<Menu> set = this.getMenus();
@@ -73,5 +90,4 @@ public class Role extends BaseObject implements GrantedAuthority {
 		this.setMenus(set);
 	}
 
-	
 }

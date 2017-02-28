@@ -24,12 +24,11 @@ import net.sf.json.JSONObject;
 @Entity
 @Table(name = "t_menu")
 public class Menu extends BaseObject {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	private Long id;
 	private String text;
 	private	String name;
-	private HashMap target = new HashMap();
+	private HashMap<?, ?> target = new HashMap();
 	private String domId;
 	private String iconCls;
 	private String state;
@@ -39,10 +38,10 @@ public class Menu extends BaseObject {
 	private boolean checked;
 	private String added;
 	private Long _parentId;
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "menu_children")
+	
 	private Set<Menu> children;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -113,7 +112,8 @@ public class Menu extends BaseObject {
 		set.add(menu);
 		this.setChildren(set);
 	}
-
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "menu_children")
 	public Set<Menu> getChildren() {
 		return children;
 	}
@@ -162,7 +162,7 @@ public class Menu extends BaseObject {
 	public int hashCode() {
 	
 		if (this.getId() != null) {
-			System.out.println(this.getId());
+		//	System.out.println(this.getId());
 			return Integer.parseInt(this.getId() + "");
 		}
 		return 0;

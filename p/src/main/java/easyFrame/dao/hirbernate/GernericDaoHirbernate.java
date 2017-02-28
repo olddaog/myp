@@ -163,11 +163,13 @@ public class GernericDaoHirbernate<T, PK extends Serializable> implements Generi
     }
 
     public Session getSession() throws HibernateException {
-     //  Session session = getSessionFactory().getCurrentSession();
-        if (session == null) {
+        if ( getSessionFactory().getCurrentSession() == null) {
         	System.out.println("=============make session=================");
         	session = getSessionFactory().openSession();
+        }else{
+        	 session = getSessionFactory().getCurrentSession();
         }
+       
         return session;
     }
     @Autowired
@@ -208,7 +210,7 @@ public class GernericDaoHirbernate<T, PK extends Serializable> implements Generi
     public T get(PK id) {
     	Session sess = getSession();
     	sess.clear();
-    List res = sess.createCriteria(persistentClass).add(Restrictions.eq("id", id)).list();
+    List<T> res = sess.createCriteria(persistentClass).add(Restrictions.eq("id", id)).list();
 	return (T)res.get(0);
     }
     
@@ -224,7 +226,7 @@ public class GernericDaoHirbernate<T, PK extends Serializable> implements Generi
     @SuppressWarnings("unchecked")
     public T save(T object) {
        
-        T aaa = (T) getSession().merge(object);//shiwu
+        T aaa = (T) getSession().merge(object);
        
         return aaa;
     }

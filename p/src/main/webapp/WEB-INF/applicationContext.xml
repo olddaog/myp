@@ -35,7 +35,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
 				</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">true</prop>
+			<!-- 	<prop key="hibernate.show_sql">false</prop> -->
 			</props>
 		</property>
 		<property name="mappingDirectoryLocations">
@@ -47,42 +47,40 @@ http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 			<value>easyFrame</value>
 		</property>
 	</bean>
+	<context:component-scan base-package="easyFrame">
+	</context:component-scan>
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-  <property name="sessionFactory" ref="sessionFactory" />
-</bean>
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 
-  <!-- =====================================================================-->
-    <!-- Security class from Spring Security - used to configure Password    -->
-    <!-- Encryption in UserManagerImpl. Can override in security.xml.        -->
-   <!-- =================================================================== -->
-<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-    <!-- Password reset token encoder -->
- <bean id="passwordTokenEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+	<!-- ===================================================================== -->
+	<!-- Security class from Spring Security - used to configure Password -->
+	<!-- Encryption in UserManagerImpl. Can override in security.xml. -->
+	<!-- =================================================================== -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<!-- Password reset token encoder -->
+	<bean id="passwordTokenEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
 
 
 
-<!-- <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
-<tx:advice id="TestAdvice" transaction-manager="txManager">
-    <tx:attributes>
-      <tx:method name="save*" propagation="REQUIRED"/>
-      <tx:method name="del*" propagation="REQUIRED"/>
-      <tx:method name="update*" propagation="REQUIRED"/>
-      <tx:method name="add*" propagation="REQUIRED"/>
-      <tx:method name="find*" propagation="REQUIRED"/>
-      <tx:method name="get*" propagation="REQUIRED"/>
-      <tx:method name="apply*" propagation="REQUIRED"/>
-    </tx:attributes>
-</tx:advice>
-
- <aop:config>
-<aop:pointcut id="allTestServiceMethod" expression="execution(* easyFrame.service.*.*(..))"/>
-<aop:advisor pointcut-ref="allTestServiceMethod" advice-ref="TestAdvice" /> 
-</aop:config> -->
+	<!-- <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" 
+		/> <tx:advice id="TestAdvice" transaction-manager="txManager"> <tx:attributes> 
+		<tx:method name="save*" propagation="REQUIRED"/> <tx:method name="del*" propagation="REQUIRED"/> 
+		<tx:method name="update*" propagation="REQUIRED"/> <tx:method name="add*" 
+		propagation="REQUIRED"/> <tx:method name="find*" propagation="REQUIRED"/> 
+		<tx:method name="get*" propagation="REQUIRED"/> <tx:method name="apply*" 
+		propagation="REQUIRED"/> </tx:attributes> </tx:advice> <aop:config> <aop:pointcut 
+		id="allTestServiceMethod" expression="execution(* easyFrame.service.*.*(..))"/> 
+		<aop:advisor pointcut-ref="allTestServiceMethod" advice-ref="TestAdvice" 
+		/> </aop:config> -->
 </beans>
 
 

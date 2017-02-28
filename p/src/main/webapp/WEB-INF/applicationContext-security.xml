@@ -39,7 +39,8 @@
 
 <sec:authentication-manager>   
  
-      <!--   <sec:authentication-provider>    
+      <!--
+         <sec:authentication-provider>    
             <sec:jdbc-user-service data-source-ref="ds"  
              users-by-username-query="select username,password,enabled as status from t_user where username=?"  
              authorities-by-username-query="SELECT u.username, r. NAME AS t_authority FROM t_user u JOIN t_authority a ON a.user_id = u.id JOIN t_role r ON r.id = a.role_id WHERE u.username = ?"

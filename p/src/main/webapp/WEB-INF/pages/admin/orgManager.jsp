@@ -128,7 +128,7 @@
 		menujson = child;
 		alert(JSON.stringify(menujson));
 		$.ajax({
-			url : '/admin/menu/save.do',
+			url : '/admin/org/save.do',
 			type : 'POST',
 			data : JSON.stringify(menujson),
 			contentType : "application/json;charset=utf-8",

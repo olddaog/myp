@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import easyFrame.dao.MenuDao;
 import easyFrame.dao.UserDao;
@@ -16,6 +17,7 @@ import easyFrame.model.Org;
 import easyFrame.model.User;
 
 @Repository(value = "userDao")
+@Transactional
 public class UserDaoHirbernate extends GernericDaoHirbernate<User, Long> implements UserDao {
 
 	public UserDaoHirbernate() {
@@ -24,10 +26,16 @@ public class UserDaoHirbernate extends GernericDaoHirbernate<User, Long> impleme
 
 	@SuppressWarnings("rawtypes")
 	public User getByUserName(String username) {
-		List res = getSession().createCriteria(User.class).add(Restrictions.eq("userName", username)).list();
-		if (res != null && res.size() > 0) {
-			return (User) res.get(0);
+		try {
+			List res = getSession().createCriteria(User.class).add(Restrictions.eq("userName", username)).list();
+			if (res != null && res.size() > 0) {
+				return (User) res.get(0);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
+		
 		return null;
 	}
 

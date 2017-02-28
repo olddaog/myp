@@ -17,7 +17,7 @@
 <body style="height: 95%;">
 	<div class="easyui-layout" style="width: 100%; height: 98%;">
 		<div id="p" data-options="region:'west'"
-			style="width: 29%; height: 100%">
+			style="width: 40%; height: 100%">
 			<table id="dg" class="easyui-datagrid"
 				style="width: 100%; height: 95%; padding: 5px;"
 				data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
@@ -62,19 +62,19 @@
 		var menus = new Array();
 
 		var toolbar = [ {
-			text : '新建',
+			text : '新建角色',
 			iconCls : 'icon-add',
 			handler : function() {
 				alert('add')
 			}
 		}, {
-			text : '删除',
+			text : '删除角色',
 			iconCls : 'icon-cut',
 			handler : function() {
 				alert('cut')
 			}
 		}, '-', {
-			text : '保存',
+			text : '保存角色',
 			iconCls : 'icon-save',
 			handler : function() {
 				alert('save')
@@ -82,7 +82,7 @@
 		} ];
 		var toolbar2 = [
 				{
-					text : '修改权限',
+					text : '按角色授权',
 					iconCls : 'icon-edit',
 					handler : function() {
 
@@ -128,7 +128,7 @@
 
 					}
 				}, '-', {
-					text : '保存',
+					text : '保存权限',
 					iconCls : 'icon-save',
 					handler : function() {
 						//alert('save');
