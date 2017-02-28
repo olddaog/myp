@@ -169,6 +169,7 @@ public class MenuController {
 	public Menu test3(Menu menu) {
 		Menu res = menu;
 		if (!(menu.getParentId() + "").equals(0 + "")) {
+			System.out.println(menu.getText());
 			res = menuManager.get(menu.getParentId());
 			res.addChildren(menu);
 			res = test3(res);
