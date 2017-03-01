@@ -37,25 +37,21 @@ public class OrgController {
 		} catch (Exception e) {
 			return new FailResponse("查询出错");
 		}
-
 	}
-
 	@ResponseBody
 	@RequestMapping("save.do")
 	public ResponseObject save(@RequestBody Org org) {
 		try {
-			//Org neworg = orgManager.save(org);
-			Org parentOrg = orgManager.get(1l);
-			//parentOrg.getChildren().add(neworg);
-			parentOrg.setName("***");
+			org.setName(org.getText());
+			Org neworg = orgManager.save(org);
+			Org parentOrg = orgManager.get(neworg.getParentId());
+			parentOrg.getChildren().add(neworg);
 			orgManager.save(parentOrg);
 			return new SuccessResponse();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new FailResponse();
 		}
-
-
 	}
 
 }

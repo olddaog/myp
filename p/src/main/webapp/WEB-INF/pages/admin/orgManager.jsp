@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html style="height: 100%;">
 <head>
@@ -42,34 +42,124 @@
 	z-index: 1002;
 	overflow: auto;
 }
+
+.black_overlay2 {
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: 1001;
+	-moz-opacity: 0.8;
+	opacity: .80;
+	filter: alpha(opacity = 80);
+}
+
+.white_content2 {
+	display: none;
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 90%;
+	height: 85%;
+	padding: 1px;
+	border: 1px solid orange;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+}
 </style>
 
 <body style="height: 95%;">
 
-<div id="light" class="white_content">
-			<form id="ff" method="post">
-				<table cellpadding="5" border="1">
-					<tr>
-						<td>菜单名:</td>
-						<td><input id="tss"  type="text" name="name"
-							data-options="required:true"></input> <a
-							href="javascript:void(0)" class="easyui-linkbutton"
-							onclick="sendMenu(this)">Submit</a></td>
-					</tr>
+	<div id="light" class="white_content">
+		<form id="ff" method="post">
+			<table cellpadding="5" border="1">
+				<tr>
+					<td>菜单名:</td>
+					<td><input id="tss" type="text" name="name"
+						data-options="required:true"></input> <a href="javascript:void(0)"
+						class="easyui-linkbutton" onclick="sendMenu(this)">Submit</a></td>
+				</tr>
 
 
-				</table>
-			</form>
-			<a href="javascript:void(0)"
-				onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
-				Close</a>
-		</div>
-		<div id="fade" class="black_overlay"></div>
-		<div style="height: 100%;">
-	<div id="cc" style="width:100%;height: 100%;">
-		<div data-options="region:'west'" style="width:30%;">
-		<ul id="tree" class="easyui-tree"
-				data-options="
+			</table>
+		</form>
+		<a href="javascript:void(0)"
+			onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+			Close</a>
+	</div>
+	<div id="fade" class="black_overlay"></div>
+
+	<div id="light2" class="white_content2">
+		<form id="ff" method="post">
+			<br>
+			<table width="720" border="1" cellpadding="5" cellspacing="0"
+				bordercolor="#00FFFF" bgcolor="#FFFFFF">
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="46"><div align="right">姓名:</div></td>
+					<td width="437"><input id="tss" type="text" name="name"
+						data-options="required:true"> </input></td>
+					<td width="126" rowspan="3">
+						<div align="center">
+							点击上传头像 <img src="ImageViewer.png" width="18" height="18" />
+						</div>
+					</td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="48"><div align="right">性别:</div></td>
+					<td width="437"><input id="tss" type="text" name="name"
+						data-options="required:true"> </input></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="41"><div align="right">手机:</div></td>
+					<td width="437"><input id="tss" type="text" name="name"
+						data-options="required:true"> </input></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="44"><div align="right">住址:</div></td>
+					<td width="437"><input name="name" type="text" id="tss"
+						size="50" data-options="required:true"></td>
+					<td></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="45"><div align="right">账号:</div></td>
+					<td width="437"><input id="tss" type="text" name="name"
+						data-options="required:true"></td>
+					<td></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="37"><div align="right">密码:</div></td>
+					<td width="437" bordercolor="#FFFFFF"><input id="tss"
+						type="text" name="name" data-options="required:true"></td>
+					<td></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td width="119" height="40"><div align="right">重复密码:</div></td>
+					<td width="437"><input id="tss" type="text" name="name"
+						data-options="required:true"></td>
+					<td><label>
+							<div align="center">
+								<input type="submit" name="Submit" value="创建" />
+							</div>
+					</label></td>
+				</tr>
+			</table>
+
+		</form>
+		<!-- <a href="javascript:void(0)"
+				onclick="document.getElementById('light2').style.display='none';document.getElementById('fade2').style.display='none'">
+				Close</a> -->
+	</div>
+	<div id="fade2" class="black_overlay2"></div>
+
+	<div style="height: 100%;">
+		<div id="cc" style="width: 100%; height: 100%;">
+			<div data-options="region:'west'" style="width: 30%;">
+				<ul id="tree" class="easyui-tree"
+					data-options="
 				onContextMenu: function(e,node){
 					e.preventDefault();
 					$(this).tree('select',node.target);
@@ -86,26 +176,28 @@
 			     	alert(selected.text);
 			     	
 				}">
-			</ul>
-		
-		
+				</ul>
+
+
+			</div>
+
+			<div data-options="region:'center'"
+				style="height: 100%; padding: 10px">
+				<table id="dd" class="easyui-datagrid"
+					style="width: 95%; height: 100%"
+					data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
+					<thead>
+						<tr>
+							<th data-options="field:'name',width:200">姓名</th>
+							<th data-options="field:'id',width:100">年龄</th>
+							<th data-options="field:'id',width:50">性别</th>
+
+						</tr>
+					</thead>
+				</table>
+
+			</div>
 		</div>
-				
-		<div data-options="region:'center'" style="height:100%;padding:10px">
-			<table id="dd" class="easyui-datagrid" style="width:95%;height:100%"
-			data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
-		<thead>
-			<tr>
-				<th data-options="field:'name',width:200">姓名</th>
-				<th data-options="field:'id',width:100">年龄</th>
-				<th data-options="field:'id',width:50">性别</th>
-				
-			</tr>
-		</thead>
-	</table>
-	
-		</div>
-	</div>
 	</div>
 	<script type="text/javascript">
 	
@@ -116,7 +208,10 @@
 		document.getElementById('light').style.display = 'block';
 		document.getElementById('fade').style.display = 'block';
 	}
-	
+	function showCreateUser() {
+		document.getElementById('light2').style.display = 'block';
+		document.getElementById('fade2').style.display = 'block';
+	}
 	
 	function sendMenu(dom) {
 		var selected = $("#tree").tree("getSelected");
@@ -125,6 +220,7 @@
 
 		child['parentId'] = selected.id;
 		child['text'] = document.getElementById("tss").value;
+		child['name'] = document.getElementById("tss").value;
 		menujson = child;
 		alert(JSON.stringify(menujson));
 		$.ajax({
@@ -156,7 +252,10 @@
 		var toolbar = [{
 			text:'新建',
 			iconCls:'icon-add',
-			handler:function(){alert('add')}
+			handler:function(){alert('add');
+			
+			showCreateUser();
+			}
 		},{
 			text:'删除',
 			iconCls:'icon-cut',
@@ -183,11 +282,11 @@
 		}
 	</script>
 	<div id="mm" class="easyui-menu" style="width: 120px;">
-	<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>
-	<div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
-	<div class="menu-sep"></div>
-	<div onclick="expand()">Expand</div>
-	<div onclick="collapse()">Collapse</div>
-</div>
+		<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>
+		<div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
+		<div class="menu-sep"></div>
+		<div onclick="expand()">Expand</div>
+		<div onclick="collapse()">Collapse</div>
+	</div>
 </body>
 </html>

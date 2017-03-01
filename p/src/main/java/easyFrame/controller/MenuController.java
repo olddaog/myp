@@ -84,6 +84,7 @@ public class MenuController {
 		HashSet<Menu> fullSet = new HashSet<Menu>();
 		HashMap<Long, Menu> map = new HashMap<Long, Menu>();
 		for (Menu menu : menus) {
+			menu.getChildren().clear();
 			map.put(menu.getId(), menu);
 		}
 

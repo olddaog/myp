@@ -97,7 +97,8 @@ public class Org extends BaseObject {
 	}
 
 	public void setText(String text) {
-		this.text = this.name;
+		this.text = text;
+		
 	}
 
 	public static void main(String[] args) {
