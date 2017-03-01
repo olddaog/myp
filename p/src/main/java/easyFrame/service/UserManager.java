@@ -12,7 +12,7 @@ public interface UserManager extends GenericManager<User, Long> {
 
 	User getByUserName(String userName);
 
-	User SaveUser(User user);
+	User save(User user);
 
 	List<User> getUsersbyOrg(Org org);
 

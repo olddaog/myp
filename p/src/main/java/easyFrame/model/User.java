@@ -26,6 +26,9 @@ public class User  extends BaseObject implements UserDetails{
 	private String name;      //真名
 	private String userName;  //账号
 	private  String password; //密码
+	private  String phone;
+	private  String address;
+	private  String sex;
 	private  boolean enabled; //是否启用
 	
 	@ManyToOne
@@ -111,6 +114,24 @@ public class User  extends BaseObject implements UserDetails{
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 }

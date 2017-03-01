@@ -43,7 +43,7 @@ public class UserManagerImp extends GenericManagerImpl<User, Long> implements Us
 		return user;
 	}
 
-	public User SaveUser(User user) {
+	public User save(User user) {
 		// 密码加密
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userDao.save(user);

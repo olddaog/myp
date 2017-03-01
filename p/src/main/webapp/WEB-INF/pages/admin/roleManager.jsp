@@ -249,6 +249,9 @@
 				dataType : 'json',
 				success : function(data) {
 				
+				if(data.resp_code==200){
+					alert("分配成功");
+				}
 					
 				}
 			})

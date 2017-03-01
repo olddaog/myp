@@ -94,60 +94,66 @@
 	<div id="fade" class="black_overlay"></div>
 
 	<div id="light2" class="white_content2">
-		<form id="ff" method="post">
+		<form id="ff" method="post" action="/user/save.do">
 			<br>
-			<table width="720" border="1" cellpadding="5" cellspacing="0"
+			<table width="731" border="1" cellpadding="5" cellspacing="0"
 				bordercolor="#00FFFF" bgcolor="#FFFFFF">
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="46"><div align="right">姓名:</div></td>
-					<td width="437"><input id="tss" type="text" name="name"
+					<td width="162" height="41"><div align="right">姓名:</div></td>
+					<td width="393"><input id="name" type="text" name="name"
 						data-options="required:true"> </input></td>
-					<td width="126" rowspan="3">
-						<div align="center">
-							点击上传头像 <img src="ImageViewer.png" width="18" height="18" />
-						</div>
-					</td>
+					<td width="138" rowspan="3"><img src="" name="imgPre"
+						width="96%" height="154" id="imgPre" style="display: block;"
+						onclick="F_Open_dialog()" /></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="48"><div align="right">性别:</div></td>
-					<td width="437"><input id="tss" type="text" name="name"
-						data-options="required:true"> </input></td>
+					<td width="162" height="48"><div align="right">性别:</div></td>
+					<td width="393"><input id="sex" type="text" name="sex"
+						data-options="required:true"></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="41"><div align="right">手机:</div></td>
-					<td width="437"><input id="tss" type="text" name="name"
+					<td width="162" height="78"><div align="right">手机:</div></td>
+					<td width="393"><input id="phone" type="text" name="phone"
 						data-options="required:true"> </input></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="44"><div align="right">住址:</div></td>
-					<td width="437"><input name="name" type="text" id="tss"
+					<td width="162" height="31"><div align="right">住址:</div></td>
+					<td width="393"><input name="address" type="text" id="address"
 						size="50" data-options="required:true"></td>
 					<td></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="45"><div align="right">账号:</div></td>
-					<td width="437"><input id="tss" type="text" name="name"
-						data-options="required:true"></td>
+					<td width="162" height="31"><div align="right">账号:</div></td>
+					<td width="393"><input id="userName" type="text"
+						name="userName" data-options="required:true"></td>
 					<td></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="37"><div align="right">密码:</div></td>
-					<td width="437" bordercolor="#FFFFFF"><input id="tss"
-						type="text" name="name" data-options="required:true"></td>
+					<td width="162" height="32"><div align="right">角色:</div></td>
+					<td width="393" bordercolor="#FFFFFF"><label> <input
+							class="easyui-combobox" name="language" style="width: 180px;"
+							data-options="
+					url:'combobox_data1.json',
+					method:'get',
+					valueField:'id',
+					textField:'text',
+					panelHeight:'auto'
+			">
+					</label></td>
 					<td></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td width="119" height="40"><div align="right">重复密码:</div></td>
-					<td width="437"><input id="tss" type="text" name="name"
-						data-options="required:true"></td>
+					<td width="162" height="44">&nbsp;</td>
+					<td width="393">&nbsp;</td>
 					<td><label>
 							<div align="center">
-								<input type="submit" name="Submit" value="创建" />
+								<button onclick="createUser()">创建</button>
 							</div>
 					</label></td>
 				</tr>
 			</table>
-
+			<input id="imm" type="file" id="imgOne"
+				onchange="preImg(this.id,'imgPre');" style="display: none">
 		</form>
 		<!-- <a href="javascript:void(0)"
 				onclick="document.getElementById('light2').style.display='none';document.getElementById('fade2').style.display='none'">
@@ -280,6 +286,70 @@
 				}
 			})
 		}
+		
+      
+		function createUser(){
+			var name=$("#name").val();
+			var sex=$("#sex").val();
+			var phone=$("#phone").val();
+			var userName=$("#userName").val();
+			var User = {}; 
+			User.name=name;
+			User.sex=sex;
+			User.phone=phone;
+			User.userName=userName;
+			var selected = $("#tree").tree("getSelected");
+			alert(JSON.stringify(User))
+			$.ajax({
+				url : '/user/save.do?orgId='+selected.id,
+				type : 'POST',
+				data : JSON.stringify(User),
+				contentType : "application/json;charset=utf-8",
+				dataType : 'json',
+				success : function(data) {
+				
+				}
+			})
+			
+			
+			
+			
+             			
+			
+	/* var	aaa=	$("#ff").serializeArray();
+	alert(JSON.stringify(aaa));
+		  //ajax表单提交
+		  alert(21)
+		  
+			$("ff").submit(function(e){
+				  alert("Submitted");
+				}); */
+		}
+		
+		function getFileUrl(sourceId) { 
+			var url; 
+			if (navigator.userAgent.indexOf("MSIE")>=1) { // IE 
+			url = document.getElementById(sourceId).value; 
+			} else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox 
+			url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0)); 
+			} else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome 
+			url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0)); 
+			} 
+			return url; 
+			} 
+
+			/** 
+			* 将本地图片 显示到浏览器上 
+			*/ 
+			function preImg(sourceId, targetId) { 
+			var url = getFileUrl(sourceId); 
+			var imgPre = document.getElementById(targetId); 
+			imgPre.src = url; 
+			} 
+			 function F_Open_dialog() 
+		       { 
+		            document.getElementById("imm").click(); 
+		       } 
 	</script>
 	<div id="mm" class="easyui-menu" style="width: 120px;">
 		<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>
