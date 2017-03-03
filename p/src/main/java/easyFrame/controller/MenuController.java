@@ -95,7 +95,7 @@ public class MenuController {
 		}
 
 		for (Menu menu : map.values()) {
-			if ((0 + "").equals(menu.getParentId() + "")) {
+			if ((0 + "").equals(menu.getId() + "")) {
 				fullSet.add(menu);
 			}
 		}
@@ -141,7 +141,7 @@ public class MenuController {
 			}
 
 			for (Menu menu : map.values()) {
-				if ((0 + "").equals(menu.getParentId() + "")) {
+				if ((0 + "").equals(menu.getId() + "")) {
 					fullSet.add(menu);
 				}
 			}
@@ -223,7 +223,7 @@ public class MenuController {
 		}
 
 		for (Menu menu : map.values()) {
-			if ((0 + "").equals(menu.getParentId() + "")) {
+			if ((0 + "").equals(menu.getId() + "")) {
 				fullSet.add(menu);
 			}
 		}

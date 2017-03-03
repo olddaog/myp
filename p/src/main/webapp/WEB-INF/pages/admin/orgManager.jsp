@@ -39,7 +39,7 @@
 	padding: 16px;
 	border: 16px solid orange;
 	background-color: white;
-	z-index: 1002;
+	z-index: 1003;
 	overflow: auto;
 }
 
@@ -256,20 +256,15 @@
 			})
 		});
 		var toolbar = [{
-			text:'新建',
+			text:'新建用户',
 			iconCls:'icon-add',
 			handler:function(){alert('add');
-			
 			showCreateUser();
 			}
 		},{
-			text:'删除',
+			text:'删除用户',
 			iconCls:'icon-cut',
 			handler:function(){alert('cut')}
-		},'-',{
-			text:'保存',
-			iconCls:'icon-save',
-			handler:function(){alert('save')}
 		}];
 		
 		

@@ -1,5 +1,6 @@
 package easyFrame.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -23,7 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class Role extends BaseObject implements GrantedAuthority {
 	private Long id;
 	private String name;
-
+	private Set<Role> children;
+	private Long parentId;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -90,4 +93,24 @@ public class Role extends BaseObject implements GrantedAuthority {
 		this.setMenus(set);
 	}
 
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "role_children")
+	public Set<Role> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Role> children) {
+		this.children = children;
+	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	
+	
 }

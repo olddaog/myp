@@ -32,6 +32,7 @@ public class Menu extends BaseObject {
 	private String domId;
 	private String iconCls;
 	private String state;
+	@SuppressWarnings("rawtypes")
 	private HashMap attributes = new HashMap();
 	private Long parentId;
 	private String url;
