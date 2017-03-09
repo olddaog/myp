@@ -170,35 +170,23 @@ public class MenuController {
 		return set2;
 	}
 
-	/*public Menu test2(Menu menu) {
-		Menu res = menu;
-		if (!(menu.getParentId() + "").equals(0 + "")) {
-			res = menuManager.get(menu.getParentId());
-			ArrayList<Menu> list = new ArrayList<Menu>();
-			for (Menu m : res.getChildren()) {
-				if (!m.getId().equals(menu.getId())) {
-					list.add(m);
-				}
-			}
-			res.getChildren().removeAll(list);
-			res.getChildren().add(menu);
+	/*
+	 * public Menu test2(Menu menu) { Menu res = menu; if (!(menu.getParentId()
+	 * + "").equals(0 + "")) { res = menuManager.get(menu.getParentId());
+	 * ArrayList<Menu> list = new ArrayList<Menu>(); for (Menu m :
+	 * res.getChildren()) { if (!m.getId().equals(menu.getId())) { list.add(m);
+	 * } } res.getChildren().removeAll(list); res.getChildren().add(menu);
+	 * 
+	 * res = test2(res); } System.out.println(JSONObject.fromObject(res));
+	 * return res; }
+	 */
 
-			res = test2(res);
-		}
-		System.out.println(JSONObject.fromObject(res));
-		return res;
-	}*/
-
-	/*public Menu test3(Menu menu) {
-		Menu res = menu;
-		if (!(menu.getParentId() + "").equals(0 + "")) {
-			System.out.println(menu.getText());
-			res = menuManager.get(menu.getParentId());
-			res.addChildren(menu);
-			res = test3(res);
-		}
-		return res;
-	}*/
+	/*
+	 * public Menu test3(Menu menu) { Menu res = menu; if (!(menu.getParentId()
+	 * + "").equals(0 + "")) { System.out.println(menu.getText()); res =
+	 * menuManager.get(menu.getParentId()); res.addChildren(menu); res =
+	 * test3(res); } return res; }
+	 */
 
 	@ResponseBody
 	@RequestMapping(value = "/getMenusByRole.do")
@@ -207,12 +195,12 @@ public class MenuController {
 		Role role = roleManager.get(roleId);
 		// 获得该角色对应的菜单
 		Set<Menu> menus = role.getMenus();
-	
+
 		// 遍历角色对应的菜单
 		HashSet<Menu> fullSet = new HashSet<Menu>();
 		HashMap<Long, Menu> map = new HashMap<Long, Menu>();
 		for (Menu menu : menus) {
-		menu.getChildren().clear();
+			menu.getChildren().clear();
 			map.put(menu.getId(), menu);
 		}
 
@@ -257,6 +245,33 @@ public class MenuController {
 		Role role = roleManager.get(roleId);
 		return new SuccessResponse(new LinkedHashSet<Menu>(role.getMenus()));
 
+	}
+
+	/*
+	 * 菜单管理根据菜单的id获得菜单属性展示到propertygrid里面
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@ResponseBody
+	@RequestMapping(value = "/lookMenuInfo.do")
+	public ResponseObject lookMenuInfo(Long menuId) {
+
+		Menu menu = menuManager.get(menuId);
+		HashMap<String, String> name = new HashMap<String, String>();
+		HashMap<String, String> url = new HashMap<String, String>();
+		HashMap<String, String> icon = new HashMap<String, String>();
+		name.put("name", "菜单名");
+		name.put("value", menu.getName());
+		name.put("editor", "text");
+		url.put("name", "菜单路径");
+		url.put("editer", "text");
+		url.put("value", menu.getUrl());
+		icon.put("name","图标");
+		icon.put("value",menu.getIconCls());
+		ArrayList res = new ArrayList();
+		res.add(name);
+		res.add(url);
+		res.add(icon);
+		return new SuccessResponse(res);
 	}
 
 }
