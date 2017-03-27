@@ -3,7 +3,7 @@
 <html   style="height: 100%;">
 <head>
 <meta charset="UTF-8">
-<title>Custom Collapse Title in Layout - jQuery EasyUI Demo</title>
+<title>基本权限管理系统</title>
 <link rel="stylesheet" type="text/css"
 	href="../js/jquery-easyui-1.4.5/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"

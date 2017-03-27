@@ -89,9 +89,9 @@
 
 		<div data-options="region:'center'"
 			style="height: 100%; padding: 10px">
-			<table id="pg" class="easyui-propertygrid" style="width: 100%;height:95%"
+			<table id="pg" class="easyui-propertygrid"
+				style="width: 100%; height: 40%"
 				data-options="
-			
 				method:'get',
 				showGroup:true,
 				scrollbarSize:0
@@ -100,91 +100,90 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	$.ajax({
-		url : '/admin/menu/getAllMenu.do',
-		type : 'GET',
-		data : '',
-		dataType : 'json',
-		success : function(data) {
-			alert(JSON.stringify(data.resp_data))
-			$('#tree').tree("loadData", data.resp_data)
-		}
-	})
-	
-	function showMenuframe() {
-		document.getElementById('light').style.display = 'block';
-		document.getElementById('fade').style.display = 'block';
-	}
-	
-	
-	function sendMenu(dom) {
-		var selected = $("#tree").tree("getSelected");
-		//alert(dom.id)
-		var child = new Object();
-		child['parentId'] = selected.id;
-		child['text'] = document.getElementById("tss").value;
-		menujson = child;
-		alert(JSON.stringify(menujson));
 		$.ajax({
-			url : '/admin/menu/save.do',
-			type : 'POST',
-			data : JSON.stringify(menujson),
-			contentType : "application/json;charset=utf-8",
+			url : '/admin/menu/getAllMenu.do',
+			type : 'GET',
+			data : '',
 			dataType : 'json',
 			success : function(data) {
-				alert(JSON.stringify(data))	;
-				
+				//alert(JSON.stringify(data.resp_data))
+				$('#tree').tree("loadData", data.resp_data)
 			}
 		})
 
-	}
-	
-		$(function(){
+		function showMenuframe() {
+			document.getElementById('light').style.display = 'block';
+			document.getElementById('fade').style.display = 'block';
+		}
+
+		function sendMenu(dom) {
+			var selected = $("#tree").tree("getSelected");
+			//alert(dom.id)
+			var child = new Object();
+			child['parentId'] = selected.id;
+			child['text'] = document.getElementById("tss").value;
+			menujson = child;
+			//alert(JSON.stringify(menujson));
+			$.ajax({
+				url : '/admin/menu/save.do',
+				type : 'POST',
+				data : JSON.stringify(menujson),
+				contentType : "application/json;charset=utf-8",
+				dataType : 'json',
+				success : function(data) {
+					alert(JSON.stringify(data));
+
+				}
+			})
+
+		}
+
+		$(function() {
 			$('#cc').layout();
 			//setHeight();
 		});
-		
-		function addItem(){
-			$('#cc').layout('panel','center').append('<p>More Panel Content.</p>');
-		//	setHeight();
+
+		function addItem() {
+			$('#cc').layout('panel', 'center').append(
+					'<p>More Panel Content.</p>');
+			//	setHeight();
 		}
-		
-		function removeItem(){
-			$('#cc').layout('panel','center').find('p:last').remove();
-		//	setHeight();
+
+		function removeItem() {
+			$('#cc').layout('panel', 'center').find('p:last').remove();
+			//	setHeight();
 		}
-		
-		function setHeight(){
+
+		function setHeight() {
 			var c = $('#cc');
-			var p = c.layout('panel','center');	// get the center panel
+			var p = c.layout('panel', 'center'); // get the center panel
 			var oldHeight = p.panel('panel').outerHeight();
-			p.panel('resize', {height:'auto'});
+			p.panel('resize', {
+				height : 'auto'
+			});
 			var newHeight = p.panel('panel').outerHeight();
-			c.layout('resize',{
-				height: (c.height() + newHeight - oldHeight)
+			c.layout('resize', {
+				height : (c.height() + newHeight - oldHeight)
 			});
 		}
-		
 
-		$('#tree').tree(
-				{
-					onSelect : function() {
-						var selected = $('#tree').tree("getSelected");
-						
-						$.ajax({
-							url : '/admin/menu/lookMenuInfo.do?menuId='+selected.id,
-							type : 'Get',
-							data :"",
-							dataType : 'json',
-							success : function(data) {
-								alert(JSON.stringify(data))	;
-								$("#pg").propertygrid("loadData",data.resp_data)
-							}
-						})
-						
+		$('#tree').tree({
+			onSelect : function() {
+				var selected = $('#tree').tree("getSelected");
+
+				$.ajax({
+					url : '/admin/menu/lookMenuInfo.do?menuId=' + selected.id,
+					type : 'Get',
+					data : "",
+					dataType : 'json',
+					success : function(data) {
+						//	alert(JSON.stringify(data))	;
+						$("#pg").propertygrid("loadData", data.resp_data)
 					}
-				});
-		
+				})
+
+			}
+		});
 	</script>
 	<div id="mm" class="easyui-menu" style="width: 120px;">
 		<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>

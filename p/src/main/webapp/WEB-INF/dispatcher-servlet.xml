@@ -32,8 +32,6 @@ value="org.springframework.web.servlet.view.JstlView" />
 
 </bean> 
 <tx:annotation-driven transaction-manager="txManager"/>
-	
-
 <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
   <property name="sessionFactory" ref="sessionFactory" />
 </bean>
@@ -41,6 +39,18 @@ value="org.springframework.web.servlet.view.JstlView" />
     <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />    
 </context:component-scan>  
 
- 
+ <!--编写拦截器-->
+    <mvc:interceptors>
+    
+    
+    
+        <mvc:interceptor>
+            <!--对特定的模块拦截-->
+            <mvc:mapping path="/admin/menu/getmenu.do"/>
+            <bean class="easyFrame.interceptor.logInterceptor"/>
+        </mvc:interceptor>
+
+
+    </mvc:interceptors>
 
 </beans> 
