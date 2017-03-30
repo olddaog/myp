@@ -28,12 +28,14 @@
 		/WEB-INF/applicationContext.xml,
 		/WEB-INF/applicationContext-security.xml
 		</param-value>
-
 		<!-- <param-value>classpath:applicationContext*.xml</param-value> -->
 	</context-param>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>easyFrame.listener.StartUpListener</listener-class>
 	</listener>
 
 	<!-- SpringSecurity 核心过滤器配置 -->

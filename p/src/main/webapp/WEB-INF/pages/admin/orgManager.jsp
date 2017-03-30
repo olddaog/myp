@@ -152,8 +152,9 @@
 					</label></td>
 				</tr>
 			</table>
-			<input id="imm" type="file" id="imgOne"
-				onchange="preImg(this.id,'imgPre');" style="display: none">
+			<form id="fm" action="/fileUpload/upload.do" method="post" enctype="multipart/form-data">  
+			<input id="imm" type="file" name="file" id="imgOne"	onchange="preImg(this.id,'imgPre');" style="display: none">
+			</form> 
 		</form>
 		<!-- <a href="javascript:void(0)"
 				onclick="document.getElementById('light2').style.display='none';document.getElementById('fade2').style.display='none'">
@@ -340,12 +341,30 @@
 			var url = getFileUrl(sourceId); 
 			var imgPre = document.getElementById(targetId); 
 			imgPre.src = url; 
+			ajaxFormSubmit();
 			} 
 			 function F_Open_dialog() 
 		       { 
 		            document.getElementById("imm").click(); 
 		       } 
-	</script>
+	
+			 
+			 function ajaxFormSubmit(){
+				  $("#fm").ajaxSubmit({  
+			            url : "/fileUpload/upload.do", // 请求的url  
+			            type : "post", // 请求方式  
+			            dataType : "json", // 响应的数据类型  
+			         
+			            success: function (data) {  
+			             alert(1);
+			            },  
+			            error : function(){  
+			                alert("数据加载失败！");  
+			            }  
+			        });  
+			 }
+			 
+			 </script>
 	<div id="mm" class="easyui-menu" style="width: 120px;">
 		<div onclick="showMenuframe()" data-options="iconCls:'icon-add'">新建</div>
 		<div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
