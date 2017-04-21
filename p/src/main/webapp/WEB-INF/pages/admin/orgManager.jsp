@@ -192,7 +192,17 @@
 				style="height: 100%; padding: 10px">
 				<table id="dd" class="easyui-datagrid"
 					style="width: 95%; height: 100%"
-					data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar">
+					data-options="rownumbers:true,singleSelect:true,url:'/admin/role/showRoles.do',method:'get',toolbar:toolbar,
+					onRowContextMenu: function(e, rowIndex, rowData){
+				e.preventDefault();
+					$('#mm1').menu('show',{
+						left: e.pageX,
+						top: e.pageY
+					});
+				}
+					
+					
+					">
 					<thead>
 						<tr>
 							<th data-options="field:'name',width:200">姓名</th>
@@ -371,6 +381,11 @@
 		<div class="menu-sep"></div>
 		<div onclick="expand()">Expand</div>
 		<div onclick="collapse()">Collapse</div>
+	</div>
+	<div id="mm1" class="easyui-menu" style="width: 120px;">
+		<div onclick="showUser" data-options="iconCls:'icon-add'">查看详情</div>
+		<div onclick="editorUser" data-options="iconCls:'icon-remove'">编辑用户</div>
+		
 	</div>
 </body>
 </html>

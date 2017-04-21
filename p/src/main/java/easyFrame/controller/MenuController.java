@@ -39,10 +39,8 @@ public class MenuController {
 	MenuManager menuManager;
 	@Autowired
 	UserManager userManager;
-
 	@Autowired
 	RoleManager roleManager;
-
 	@RequestMapping(value = "/save.do")
 	@ResponseBody
 	public ResponseObject saveNewMenu(@RequestBody Menu menu) {

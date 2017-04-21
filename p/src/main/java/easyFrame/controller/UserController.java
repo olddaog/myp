@@ -64,8 +64,8 @@ public class UserController {
 		try {
 
 			Org org = orgManager.get(orgId);
-			user.setOrg(org);
-			user.setPassword("123456");
+			 user.setOrg(org);
+			 user.setPassword("123456");
 			 userManager.save(user);
 			return new SuccessResponse();
 		} catch (Exception e) {
@@ -89,4 +89,10 @@ public class UserController {
 
 	}
 
+	
+	@RequestMapping(value = "/showUserDetail.do")
+	public String showUserDetail(Long userId) {
+		
+		return "admin/userManager";
+	}
 }
