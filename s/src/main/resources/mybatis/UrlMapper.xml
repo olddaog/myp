@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UrlMapper">
+
+<insert id="saveUrl" parameterType="com.sjcj.model.Url">
+insert into url 
+(  id,
+  path,
+  keywords,
+  description,
+  title
+  
+  ) values (#{id},#{path},#{keywords},#{description},#{title}) 
+</insert>
+
+</mapper>
